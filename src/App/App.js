@@ -8,6 +8,8 @@ import Root from "../components/Root/Root"
 import HomePage from '../components/Homepage/HomePage';
 import Subreddit from '../components/Subreddit/Subreddit';
 
+// import styles from "../../css/bootstrap.css";
+
 const mockTopPosts = {
 
 }

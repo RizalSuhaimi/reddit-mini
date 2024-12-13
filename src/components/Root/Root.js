@@ -5,7 +5,7 @@ import ROUTES from "../../App/Routes";
 const Root = () => {
     return (
         <>
-            <h1>Hello</h1>
+            <h1>REDDITmini</h1>
             <div>
                 <nav>
                     <ul>
