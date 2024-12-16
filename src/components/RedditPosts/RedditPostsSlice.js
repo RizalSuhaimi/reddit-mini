@@ -4,7 +4,7 @@ export const loadRedditPosts = createAsyncThunk(
     "redditPosts/loadRedditPosts",
     async (arg, thunkApi) => {
         try {
-            const response = await fetch('https://www.reddit.com/.json');
+            const response = await fetch('https://www.reddit.com/r/popular/.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

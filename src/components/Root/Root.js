@@ -14,11 +14,6 @@ const Root = () => {
                                 Subreddit
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to={ROUTES.postRoute()}>
-                                Post
-                            </NavLink>
-                        </li>
                     </ul>
                 </nav>
             </div>
