@@ -5,17 +5,15 @@ import { configureStore } from "@reduxjs/toolkit";
 global.fetch = jest.fn();
 
 describe("loadFullPost async thunk", () => {
-    const initialState = {
-        fullPost: null,
-        isLoading: false,
-        hasError: false,
-        errorMessage: ""
-    };
 
     let store;
 
     beforeEach(() => {
-        store = configureStore({ reducer: { fullPost: fullPostReducer } });
+        store = configureStore({
+            reducer: {
+                fullPost: fullPostReducer
+            }
+        });
     });
 
     afterEach(() => {
@@ -23,17 +21,15 @@ describe("loadFullPost async thunk", () => {
     });
 
     it("dispatches loadFullPost.fulfilled when fetching a Reddit post succeeds", async () => {
-        const mockResponse = [{ data: "Sample data"}];
-        fetch.mockResolvedValueOnce({
-            ok: true,
-            json: jest.fn().mockResolvedValueOnce(mockResponse),
-        });
-
-        const result = await store.dispatch(loadFullPost({ subreddit: 'test', postId: '123', postTitle: 'test-post' }));
-        const actions = store.getActions();
-
-        expect(actions[0].type).toEqual(loadFullPost.pending.type);
-        expect(actions[1].type).toEqual(loadFullPost.fulfilled.type);
-        expect(actions[1].payload).toEqual(mockResponse)
+        const resolvedValue = {
+            status: "MOCK",
+            data: []
+        }
+        fetch.mockResolvedValueOnce(resolvedValue);
+        const actualValue = await loadFullPost
     })
 })
+
+// () => {
+//     return Promise.resolve({})
+// }

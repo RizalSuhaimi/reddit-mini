@@ -26,24 +26,24 @@ export const fullPostSlice = createSlice({
         errorMessage: "", // Store error message for more feedback
     },
     reducers: {},
-        extraReducers: (builder) => {
-            builder
-                .addCase(loadFullPost.pending, (state) => {
-                    state.isLoading = true;
-                    state.hasError = false;
-                    state.errorMessage = "";
-                })
-                .addCase(loadFullPost.fulfilled, (state, action) => {
-                    state.fullPost = action.payload
-                    state.isLoading = false;
-                    state.hasError = false;
-                })
-                .addCase(loadFullPost.rejected, (state, action) => {
-                    state.isLoading = false;
-                    state.hasError = true;
-                    state.fullPost = null;
-                    state.errorMessage = action.payload || "Failed to load Reddit post";
-                })
+    extraReducers: (builder) => {
+        builder
+            .addCase(loadFullPost.pending, (state) => {
+                state.isLoading = true;
+                state.hasError = false;
+                state.errorMessage = "";
+            })
+            .addCase(loadFullPost.fulfilled, (state, action) => {
+                state.fullPost = action.payload
+                state.isLoading = false;
+                state.hasError = false;
+            })
+            .addCase(loadFullPost.rejected, (state, action) => {
+                state.isLoading = false;
+                state.hasError = true;
+                state.fullPost = null;
+                state.errorMessage = action.payload || "Failed to load Reddit post";
+            })
     }
 })
 
