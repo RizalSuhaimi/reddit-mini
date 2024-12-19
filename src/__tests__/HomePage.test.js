@@ -7,7 +7,8 @@ import {
 import redditPostsReducer from "../components/RedditPosts/RedditPostsSlice";
 import fullPostReducer from "../components/FullPost/FullPostSlice";
 import { configureStore } from "@reduxjs/toolkit";
-const { http, HttpResponse, delay } = require("msw");
+// const { http, rest, delay } = require("msw");
+import { http, delay, rest } from 'msw';
 const {setupServer} = require("msw/node");
 import { fireEvent, screen } from "@testing-library/dom";
 import { renderWithProviders } from "../utils/test-utils";
@@ -75,10 +76,20 @@ const mockTopPosts = {
     }
 }
 
+// export const handlers = [
+//     http.get('https://www.reddit.com/r/popular/.json' , async () => {
+//         await delay(300)
+//         return HttpResponse.json(mockTopPosts)
+//     })
+// ]
+
 export const handlers = [
-    http.get('https://www.reddit.com/r/popular/.json' , async () => {
+    rest.get('https://www.reddit.com/r/popular/.json' , async (req, res, ctx) => {
         await delay(300)
-        return HttpResponse.json(mockTopPosts)
+        return res(
+            ctx.status(200),
+            ctx.json(mockTopPosts)
+        )
     })
 ]
 
