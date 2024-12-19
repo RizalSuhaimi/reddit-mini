@@ -8,7 +8,14 @@ export const loadRedditPosts = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const jsonResponse = await response.json();
+
+            let jsonResponse;
+            try {
+                jsonResponse = await response.json();
+            } catch (jsonError) {
+                throw new Error(`Error parsing JSON response: ${jsonError}`)
+            }
+            
             return jsonResponse;
         } catch (error) {
             // Use 'rejestWithValue' to return a custom error message to the reducer

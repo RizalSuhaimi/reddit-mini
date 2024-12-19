@@ -1,4 +1,4 @@
-import { filterByTerm } from "../src/components/filterByTerm";
+import { filterByTerm } from "../components/filterByTerm";
 
 describe("Filter function", () => {
     test("it should filter by a search term (link)", () => {
