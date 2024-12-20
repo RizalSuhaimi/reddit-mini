@@ -31,7 +31,7 @@ const HomePage = () => {
     return (
         <div>
             <h2>Trending in Reddit</h2>
-            <RedditPosts redditPosts={redditPosts}/>
+            <RedditPosts fetchResponse={redditPosts}/>
         </div>
     )
 }

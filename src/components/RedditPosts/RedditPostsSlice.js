@@ -24,6 +24,7 @@ export const loadRedditPosts = createAsyncThunk(
             return jsonResponse;
         } catch (error) {
             // Use 'rejectWithValue' to return a custom error message to the reducer
+            console.log(error)
             return thunkApi.rejectWithValue(error.message);
         }
     }

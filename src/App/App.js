@@ -8,7 +8,7 @@ import Root from "../components/Root/Root"
 import HomePage from '../components/Homepage/HomePage';
 import Subreddit from '../components/Subreddit/Subreddit';
 import FullPost from '../components/FullPost/FullPost';
-
+import SearchResults from '../components/SearchResults/SearchResults';
 // import styles from "../../css/bootstrap.css";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
           <Route index element={ <HomePage/> } />
           <Route path="r/:subreddit" element={ <Subreddit/> } />
           <Route path="r/:subreddit/comments/:postId/:postTitle" element={ <FullPost/> } />
-          <Route path="search" /> {/*I want this Route to be for the search query*/}
+          <Route path="search" element={ <SearchResults/> } /> {/*I want this Route to be for the search query*/}
         </Route>
       </Routes>
     </BrowserRouter>
