@@ -1,11 +1,14 @@
 import React from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import ROUTES from "../../App/Routes";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const Root = () => {
     return (
         <>
-            <h1>REDDITmini</h1>
+            <div className="bg-dark" data-bs-theme="dark">
+                <h1 className="text-primary container">REDDITmini</h1>
+            </div>
             <div>
                 <nav>
                     <ul>

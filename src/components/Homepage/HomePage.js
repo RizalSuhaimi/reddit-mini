@@ -9,6 +9,8 @@ import {
     isLoading
 } from "../RedditPosts/RedditPostsSlice";
 
+import "bootstrap/dist/css/bootstrap.min.css"
+
 const HomePage = () => {
     const dispatch = useDispatch();
     const redditPosts = useSelector(selectRedditPosts)
