@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+// Search queries will look like the link below
+// https://www.reddit.com/search.json?q=cake%20recipes
+
+// The URL being used to fetch reddit posts will change depending on whether it's the homme page, a subreddit page, or a search query
+
 export const loadRedditPosts = createAsyncThunk(
     "redditPosts/loadRedditPosts",
     async (arg, thunkApi) => {
@@ -18,7 +23,7 @@ export const loadRedditPosts = createAsyncThunk(
             
             return jsonResponse;
         } catch (error) {
-            // Use 'rejestWithValue' to return a custom error message to the reducer
+            // Use 'rejectWithValue' to return a custom error message to the reducer
             return thunkApi.rejectWithValue(error.message);
         }
     }

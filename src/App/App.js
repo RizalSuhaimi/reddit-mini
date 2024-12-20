@@ -11,10 +11,6 @@ import FullPost from '../components/FullPost/FullPost';
 
 // import styles from "../../css/bootstrap.css";
 
-const mockTopPosts = {
-
-}
-
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +19,7 @@ function App() {
           <Route index element={ <HomePage/> } />
           <Route path="r/:subreddit" element={ <Subreddit/> } />
           <Route path="r/:subreddit/comments/:postId/:postTitle" element={ <FullPost/> } />
+          <Route path="search" /> {/*I want this Route to be for the search query*/}
         </Route>
       </Routes>
     </BrowserRouter>

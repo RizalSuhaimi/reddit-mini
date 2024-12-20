@@ -2,12 +2,14 @@ import React from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import ROUTES from "../../App/Routes";
 import "bootstrap/dist/css/bootstrap.min.css"
+import SearchBar from "../SearchBar/SearchBar";
 
 const Root = () => {
     return (
         <>
             <div className="bg-dark" data-bs-theme="dark">
                 <h1 className="text-primary container">REDDITmini</h1>
+                <SearchBar />
             </div>
             <div>
                 <nav>

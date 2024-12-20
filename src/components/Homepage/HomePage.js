@@ -8,6 +8,7 @@ import {
     selectErrorMessage,
     isLoading
 } from "../RedditPosts/RedditPostsSlice";
+import RedditPosts from "../RedditPosts/RedditPosts";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -30,19 +31,7 @@ const HomePage = () => {
     return (
         <div>
             <h2>Trending in Reddit</h2>
-            <ul>
-                {redditPosts ? 
-                    redditPosts.data.children.map((post) => (
-                    <li key={post.data.id}>
-                        <Link to={ROUTES.fullPostRoute(post.data.subreddit, post.data.id, post.data.title)} >
-                            {post.data.title}
-                        </Link>
-                    </li>
-                    ))
-                    :
-                    <p>Content is loading</p>
-                }
-            </ul>
+            <RedditPosts redditPosts={redditPosts}/>
         </div>
     )
 }
