@@ -10,7 +10,7 @@ import {
 } from "../SearchResults/SearchResultsSlice";
 import RedditPosts from "../RedditPosts/RedditPosts";
 
-const SearchResults = (props) => {
+const SearchResults = () => {
     const searchResults = useSelector(selectSearchResults);
     const isLoadingSearchResults = useSelector(isLoading);
     const searchErrorMessage = useSelector(selectErrorMessage);

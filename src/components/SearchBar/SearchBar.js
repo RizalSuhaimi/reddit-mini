@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../App/Routes";
@@ -19,32 +19,35 @@ const SearchBar = () => {
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [searchConstraint, setSearchConstraint] = useState("posts")
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(runSearch({searchTerm}));
+        dispatch(runSearch({searchTerm, searchConstraint}));
         navigate(ROUTES.searchRoute());
     }
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <select
-                    onChange={(e) => e}
-                    defaultValue="posts"
-                >
-                    <option value="posts">posts</option>
-                    <option value="subreddits">Subreddits</option>
-                </select>
-                <label htmlFor="search" >
-                    <input 
-                        type="text"
-                        id="search"
-                        placeholder="Search"
-                        onChange={(e) => setSearchTerm(e.currentTarget.value)}
-                    />
-                    <button type="submit" >Search</button>
-                </label>
+                <div>
+                    <label htmlFor="search" >
+                        <input 
+                            type="text"
+                            id="search"
+                            placeholder="Search Reddit"
+                            onChange={(e) => setSearchTerm(e.currentTarget.value)}
+                        />
+                    </label>
+                    <select
+                        onChange={(e) => setSearchConstraint(e.currentTarget.value)}
+                        defaultValue="posts"
+                    >
+                        <option value="posts">Posts</option>
+                        <option value="subreddits">Subreddits</option>
+                    </select>
+                </div>
+                <button type="submit" >Search</button>
             </form>
             
         </div>

@@ -7,7 +7,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const runSearch = createAsyncThunk(
     "searchResults/runSearch",
-    async ({searchTerm}, thunkApi) => {
+    async ({searchTerm, searchConstraint}, thunkApi) => {
         try {
             const response = await fetch(`https://www.reddit.com/search.json?q=${searchTerm}`);
             if (!response.ok) {
@@ -34,6 +34,7 @@ export const searchResultsSlice = createSlice({
     name: "searchResults",
     initialState: {
         searchResults: null,
+        searchTerm: "",
         isLoading: false,
         hasError: false,
         errorMessage: "", // Store error message for more feedback
