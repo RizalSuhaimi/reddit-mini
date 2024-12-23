@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import ROUTES from "../../App/Routes";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    runSearch,
     selectSearchResults,
+    selectSearchTerm,
+    selectSearchConstraint,
     selectErrorMessage,
     isLoading
 } from "../SearchResults/SearchResultsSlice";
 import RedditPosts from "../RedditPosts/RedditPosts";
+import Subreddits from "../Subreddits/Subreddits";
 
 const SearchResults = () => {
     const searchResults = useSelector(selectSearchResults);
+    const searchTerm = useSelector(selectSearchTerm)
+    const searchConstraint = useSelector(selectSearchConstraint)
     const isLoadingSearchResults = useSelector(isLoading);
     const searchErrorMessage = useSelector(selectErrorMessage);
 
@@ -23,8 +27,18 @@ const SearchResults = () => {
 
     return (
         <div>
-            <h2>Search Results</h2>
-            <RedditPosts fetchResponse={searchResults} />
+            {searchResults.data.children.length > 0 ? 
+                <>
+                    <h2>Search Results for {searchTerm}</h2>
+                    {searchConstraint === "posts" ? 
+                        <RedditPosts fetchResponse={searchResults} />
+                        :
+                        <Subreddits fetchResponse={searchResults} calledFrom="SearchResults" />
+                    }
+                </>
+                :
+                <h3>Cannot find anything for {searchTerm}</h3>
+            }
         </div>
     )
 }

@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import ROUTES from "../../App/Routes";
-import "bootstrap/dist/css/bootstrap.min.css"
+import { useDispatch, useSelector } from "react-redux";
+import {
+    loadSubreddits,
+    selectSubreddits,
+    selectErrorMessage,
+    isLoading
+} from "../Subreddits/SubredditsSlice";
 import SearchBar from "../SearchBar/SearchBar";
+import Subreddits from "../Subreddits/Subreddits";
+
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const Root = () => {
+    const dispatch = useDispatch();
+    const subreddits = useSelector(selectSubreddits)
+    const isLoadingSubreddits = useSelector(isLoading);
+    const subredditsErrorMessage = useSelector(selectErrorMessage);
+
+    useEffect(() => {
+            dispatch(loadSubreddits());
+    }, [dispatch]);
+
+    if (isLoadingSubreddits) {
+        return <div>Getting subreddits</div>
+    } else if (subredditsErrorMessage) {
+        return <div>{subredditsErrorMessage}</div>
+    }
+
     return (
         <>
             <div className="bg-dark" data-bs-theme="dark">
@@ -12,15 +36,7 @@ const Root = () => {
                 <SearchBar />
             </div>
             <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <NavLink to={ROUTES.subredditRoute()}>
-                                Subreddit
-                            </NavLink>
-                        </li>
-                    </ul>
-                </nav>
+                <Subreddits fetchResponse={subreddits} calledFrom="Root" />
             </div>
             <Outlet />
         </>

@@ -24,14 +24,22 @@ const RedditPosts = ({fetchResponse}) => {
                                     subreddit: post.data.subreddit,
                                     postId: post.data.id,
                                     postTitle: post.data.title
-                                }))}>
-                                    {post.data.title}
+                            }))}>
+                                <div>
+                                    <p>PH subreddit icon</p>
+                                    <p>{post.data.subreddit_name_prefixed}</p>
+                                    <h3>{post.data.title}</h3>
+                                    <p>PH thumbnail</p>
+                                    <p>Score: {post.data.score}</p>
+                                    <p>Comments: {post.data.num_comments}</p>
+                                    <p>Awards: {post.data.total_awards_received}</p>
+                                </div>
                             </Link>
                         </li>
                     ))}
                 </ul>
                 :
-                <p>Content is loading</p>
+                <p>Content unavailable</p>
             }
         </>
     )

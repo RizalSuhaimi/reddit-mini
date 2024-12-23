@@ -67,7 +67,7 @@ export const selectErrorMessage = (state) => state.redditPosts.errorMessage;
 export default redditPostsSlice.reducer;
 
 // Data on subreddit post for feed
-const mockTopPosts = {
+const mockRedditPosts = {
     data: {
         after: "t1",
         before: "s1",
@@ -80,7 +80,7 @@ const mockTopPosts = {
                     subreddit: "pics",
                     subreddit_name_prefixed: "r/pics",
                     thumbnail: "https://b.thumbs.redditmedia.com/C695qg-mo9aY9rqLeBc5Z-9nwijyLCVN7rpkAr7MmWM.jpg",
-                    upvotes: 21,
+                    score: 21,
                     num_comments: 11,
                     permalink: "/r/pics/comments/1hbtcy9/wanted_posters_of_healthcare_ceos_are_starting_to/",
                     created: 73737373,
@@ -103,7 +103,7 @@ const mockTopPosts = {
                     subreddit: "Bolehland",
                     subreddit_name_prefixed: "r/Bolehland",
                     thumbnail: "https://b.thumbs.redditmedia.com/C695qg-mo9aY9rqLeBc5Z-9nwijyLCVN7rpkAr7MmWM.jpg",
-                    upvotes: 22,
+                    score: 22,
                     num_comments: 12,
                     permalink: "/r/Bolehland/comments/1hccdac/rounding_should_be_illegal/",
                     created: 73737374
@@ -118,7 +118,7 @@ const mockTopPosts = {
                     subreddit: "cats",
                     subreddit_name_prefixed: "r/cats",
                     thumbnail: "https://b.thumbs.redditmedia.com/C695qg-mo9aY9rqLeBc5Z-9nwijyLCVN7rpkAr7MmWM.jpg",
-                    upvotes: 23,
+                    score: 23,
                     num_comments: 13,
                     permalink: "/r/cats/comments/1hccrsn/neighbors_threw_cat_outside_in_10f_weather/",
                     created: 73737375
@@ -231,7 +231,9 @@ const mockTopPosts = {
                     // removed_by_category: null
                     // report_reasons: null
                     // saved: false
+
                     // score: 185504
+                    
                     // secure_media: null
                     // secure_media_embed: Object {  }
                     // selftext: ""
