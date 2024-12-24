@@ -7,9 +7,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const loadRedditPosts = createAsyncThunk(
     "redditPosts/loadRedditPosts",
-    async (arg, thunkApi) => {
+    async (subreddit = "popular", thunkApi) => {
         try {
-            const response = await fetch('https://www.reddit.com/r/popular/.json');
+            const response = await fetch(`https://www.reddit.com/r/${subreddit}/.json`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -75,6 +75,7 @@ const mockRedditPosts = {
             {
                 data: {
                     id: "1hbtcy9",
+                    author: "McMechanic",
                     name: "b1",
                     title: "Wanted posters of healthcare CEOs are starting to pop up in NYC",
                     subreddit: "pics",
@@ -98,6 +99,7 @@ const mockRedditPosts = {
             {
                 data: {
                     id: "1hccdac",
+                    author: "McMechanic",
                     name: "b2",
                     title: "Rounding should be illegal",
                     subreddit: "Bolehland",
@@ -113,6 +115,7 @@ const mockRedditPosts = {
             {
                 data: {
                     id: "1hccrsn",
+                    author: "McMechanic",
                     name: "b3",
                     title: "Neighbors threw cat outside in 10f weather",
                     subreddit: "cats",

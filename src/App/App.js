@@ -19,7 +19,7 @@ function App() {
           <Route index element={ <HomePage/> } />
           <Route path="r/:subreddit" element={ <Subreddit/> } />
           <Route path="r/:subreddit/comments/:postId/:postTitle" element={ <FullPost/> } />
-          <Route path="search" element={ <SearchResults/> } /> {/*I want this Route to be for the search query*/}
+          <Route path="search" element={ <SearchResults/> } />
         </Route>
       </Routes>
     </BrowserRouter>
