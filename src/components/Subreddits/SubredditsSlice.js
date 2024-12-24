@@ -9,7 +9,7 @@ export const loadSubreddits = createAsyncThunk(
     "subreddits/loadSubreddits",
     async (arg, thunkApi) => {
         try {
-            const response = await fetch(`https://www.reddit.com/subreddits/.json`);
+            const response = await fetch(`https://www.reddit.com/subreddits/.json?limit=10`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -24,7 +24,6 @@ export const loadSubreddits = createAsyncThunk(
             return jsonResponse;
         } catch (error) {
             // Use 'rejectWithValue' to return a custom error message to the reducer
-            console.log(error)
             return thunkApi.rejectWithValue(error.message);
         }
     }
@@ -47,7 +46,7 @@ export const subredditsSlice = createSlice({
                 state.errorMessage = "";
             })
             .addCase(loadSubreddits.fulfilled, (state, action) => {
-                state.subreddits = action.payload.jsonResponse
+                state.subreddits = action.payload
                 state.isLoading = false;
                 state.hasError = false;
             })
@@ -55,7 +54,7 @@ export const subredditsSlice = createSlice({
                 state.isLoading = false;
                 state.hasError = true;
                 state.subreddits = null;
-                state.errorMessage = action.payload || "Failed to load Reddit posts";
+                state.errorMessage = action.payload || "Failed to load Subreddits";
             })
     }
 })

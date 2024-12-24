@@ -31,7 +31,6 @@ export const runSearch = createAsyncThunk(
             return { jsonResponse, searchTerm, searchConstraint };
         } catch (error) {
             // Use 'rejectWithValue' to return a custom error message to the reducer
-            console.log(error)
             return thunkApi.rejectWithValue(error.message);
         }
     }
@@ -66,7 +65,7 @@ export const searchResultsSlice = createSlice({
                 state.isLoading = false;
                 state.hasError = true;
                 state.searchResults = null;
-                state.errorMessage = action.payload || "Failed to load Reddit posts";
+                state.errorMessage = action.payload || "Failed to run the search";
             })
     }
 })
