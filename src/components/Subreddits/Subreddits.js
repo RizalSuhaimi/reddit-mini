@@ -16,7 +16,7 @@ const Subreddits = ({ fetchResponse, calledFrom }) => {
             <>
                 {fetchResponse ? 
                     <ul>
-                        {fetchResponse.data.children.map((subreddit) => (
+                        {fetchResponse.children.map((subreddit) => (
                             <li key={subreddit.data.id}>
                                 <Link 
                                     to={ROUTES.subredditRoute(subreddit.data.display_name)}
@@ -42,7 +42,7 @@ const Subreddits = ({ fetchResponse, calledFrom }) => {
             <>
                 {fetchResponse ? 
                     <ul>
-                        {fetchResponse.data.children.map((subreddit) => (
+                        {fetchResponse.children.map((subreddit) => (
                             <li key={subreddit.data.id}>
                                 <Link 
                                     to={ROUTES.subredditRoute(subreddit.data.display_name)}

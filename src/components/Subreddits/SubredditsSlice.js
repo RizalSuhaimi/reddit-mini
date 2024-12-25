@@ -46,7 +46,8 @@ export const subredditsSlice = createSlice({
                 state.errorMessage = "";
             })
             .addCase(loadSubreddits.fulfilled, (state, action) => {
-                state.subreddits = action.payload
+                const { data } = action.payload;
+                state.subreddits = data;
                 state.isLoading = false;
                 state.hasError = false;
             })

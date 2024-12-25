@@ -13,12 +13,12 @@ const RedditPosts = ({fetchResponse}) => {
 
     return (
         <>
-            {fetchResponse ? 
+            {Object.keys(fetchResponse).length > 0 ? 
                 <ol>
-                    {fetchResponse.data.children.map((post) => (
+                    {fetchResponse.children.map((post) => (
                         <li key={post.data.id}>
                             <Link 
-                                to={ROUTES.fullPostRoute(post.data.subreddit, post.data.id, post.data.title)}
+                                to={ROUTES.fullPostRoute(post.data.permalink)}
                                 aria-label={`Read the full Reddit post: ${post.data.title}`}
                                 onClick={() => dispatch(loadFullPost(post.data.permalink))}
                             >

@@ -1,6 +1,6 @@
 const ROUTES = {
     subredditRoute: (subreddit) => `/r/${subreddit}`,
-    fullPostRoute: (subreddit, postId, postTitle) => `/r/${subreddit}/comments/${postId}/${postTitle}`,
+    fullPostRoute: (permalink) => `${permalink}`,
     searchRoute: () => `/search`,
     subredditRoute: (subreddit) => `/r/${subreddit}`
 };

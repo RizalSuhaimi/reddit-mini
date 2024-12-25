@@ -6,7 +6,7 @@ export const loadRedditPosts = createAsyncThunk(
     "redditPosts/loadRedditPosts",
     async ({subreddit = "popular", after=null}, thunkApi) => {
         try {
-            const response = await fetch(`https://www.reddit.com/r/${subreddit}/.json`);
+            const response = await fetch(`https://www.reddit.com/r/${subreddit}/.json?${after ? `after=${after}` : ""}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -31,7 +31,8 @@ export const loadRedditPosts = createAsyncThunk(
 export const redditPostsSlice = createSlice({
     name: "redditPosts",
     initialState: {
-        redditPosts: null,
+        redditPosts: {},
+        after: null,
         isLoading: false,
         hasError: false,
         errorMessage: "", // Store error message for more feedback
@@ -45,7 +46,8 @@ export const redditPostsSlice = createSlice({
                 state.errorMessage = "";
             })
             .addCase(loadRedditPosts.fulfilled, (state, action) => {
-                state.redditPosts = action.payload
+                const { data } = action.payload;
+                state.redditPosts = data;
                 state.isLoading = false;
                 state.hasError = false;
                 state.errorMessage = "";
