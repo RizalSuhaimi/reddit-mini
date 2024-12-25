@@ -23,9 +23,9 @@ const Subreddits = ({ fetchResponse, calledFrom }) => {
                                     aria-label={`Go to the ${subreddit.data.display_name} subreddit`}
                                     onClick={() => dispatch(loadRedditPosts({
                                         subreddit: subreddit.data.display_name
-                                }))}>
+                                    }))}>
                                     <div>
-                                        <p>PH subreddit icon</p>
+                                        {/* <p>PH subreddit icon</p> */}
                                         <h3>{subreddit.data.display_name_prefixed}</h3>
                                     </div>
                                 </Link>
@@ -49,12 +49,13 @@ const Subreddits = ({ fetchResponse, calledFrom }) => {
                                     aria-label={`Go to the ${subreddit.data.display_name} subreddit`}
                                     onClick={() => dispatch(loadRedditPosts({
                                         subreddit: subreddit.data.display_name
-                                }))}>
+                                    }))}
+                                >
                                     <div>
-                                        <p>PH subreddit icon</p>
+                                        {/* <p>PH subreddit icon</p> */}
                                         <h3>{subreddit.data.display_name_prefixed}</h3>
                                         <p>{subreddit.data.title}</p>
-                                        <p>Subcribers: {subreddit.data.subscribers}</p>
+                                        {/* <p>Subcribers: {subreddit.data.subscribers}</p> */}
                                     </div>
                                 </Link>
                             </li>

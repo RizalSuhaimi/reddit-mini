@@ -19,7 +19,7 @@ const HomePage = () => {
     const redditPostsErrorMessage = useSelector(selectErrorMessage);
 
     useEffect(() => {
-        dispatch(loadRedditPosts());
+        dispatch(loadRedditPosts({}));
     }, [dispatch]);
 
     if (isLoadingRedditPosts) {

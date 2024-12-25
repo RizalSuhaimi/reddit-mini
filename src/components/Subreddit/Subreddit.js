@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { 
-    loadRedditPosts,
     selectRedditPosts,
     selectErrorMessage,
     isLoading
@@ -12,15 +11,12 @@ import RedditPosts from "../RedditPosts/RedditPosts";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const Subreddit = () => {
-    const dispatch = useDispatch();
+    // The API fetch function was executed onClick, so it's unnecessary to dispatch loadRedditPosts in this file
+
     const redditPosts = useSelector(selectRedditPosts);
     const isLoadingRedditPosts = useSelector(isLoading);
     const redditPostsErrorMessage = useSelector(selectErrorMessage);
     const { subreddit } = useParams();
-
-    useEffect(() => {
-            dispatch(loadRedditPosts(subreddit));
-    }, [dispatch]);
 
     if (isLoadingRedditPosts) {
         return <div>Content is loading</div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import ROUTES from "../../App/Routes";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -34,6 +34,14 @@ const Root = () => {
             <div className="bg-dark" data-bs-theme="dark">
                 <h1 className="text-primary container">REDDITmini</h1>
                 <SearchBar />
+            </div>
+            <div>
+                <Link
+                    to="/"
+                    aria-label="Go Home"
+                >
+                    <h4>Home</h4>
+                </Link>
             </div>
             <div>
                 <Subreddits fetchResponse={subreddits} calledFrom="Root" />

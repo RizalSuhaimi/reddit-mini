@@ -3,19 +3,24 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // Search queries will look like the link below
 // https://www.reddit.com/search.json?q=cake%20recipes
 
-// The URL being used to fetch reddit posts will change depending on whether it's the homme page, a subreddit page, or a search query
+// The URL being used to fetch reddit posts will change depending on whether it's the home page, a subreddit page, or a search query
 
 export const runSearch = createAsyncThunk(
     "searchResults/runSearch",
     async ({searchTerm, searchConstraint}, thunkApi) => {
-        try {
-            let url
-            if (searchConstraint === "posts") {
-                url = `https://www.reddit.com/search.json?q=${searchTerm}`
-            } else {
-                url = `https://www.reddit.com/search.json?q=${searchTerm}&type=sr`
+        const hasSpecialCharacters = /[^a-zA-Z0-9 ]/.test(searchTerm)
+        const encodedSearchTerm = encodeURIComponent(searchTerm)
+        let url
+        if (searchConstraint === "posts") {
+            url = `https://www.reddit.com/search.json?q=${encodedSearchTerm}`
+        } else {
+            if (hasSpecialCharacters) {
+                return thunkApi.rejectWithValue(`There are no subreddits with special characters (eg. ~ ! @ # $ )`)
             }
+            url = `https://www.reddit.com/search.json?q=${encodedSearchTerm}&type=sr`
+        }
 
+        try {
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

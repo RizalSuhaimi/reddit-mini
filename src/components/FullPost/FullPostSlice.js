@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const loadFullPost = createAsyncThunk(
     "fullPost/loadFullPost",
-    async ({ subreddit, postId, postTitle}, thunkApi) => {
+    async (permalink, thunkApi) => {
         try {
-            const response = await fetch(`https://www.reddit.com/r/${subreddit}/comments/${postId}/${postTitle}/.json`);
+            const response = await fetch(`https://www.reddit.com${permalink}.json`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

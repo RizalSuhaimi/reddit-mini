@@ -1,19 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// Search queries will look like the link below
-// https://www.reddit.com/search.json?q=cake%20recipes
-
-// The URL being used to fetch reddit posts will change depending on whether it's the homme page, a subreddit page, or a search query
+// The URL being used to fetch reddit posts will change depending on whether it's the home page, a subreddit page, or a search query
 
 export const loadRedditPosts = createAsyncThunk(
     "redditPosts/loadRedditPosts",
-    async (subreddit = "popular", thunkApi) => {
+    async ({subreddit = "popular", after=null}, thunkApi) => {
         try {
             const response = await fetch(`https://www.reddit.com/r/${subreddit}/.json`);
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
+            
             let jsonResponse;
             try {
                 jsonResponse = await response.json();
@@ -50,6 +48,7 @@ export const redditPostsSlice = createSlice({
                 state.redditPosts = action.payload
                 state.isLoading = false;
                 state.hasError = false;
+                state.errorMessage = "";
             })
             .addCase(loadRedditPosts.rejected, (state, action) => {
                 state.isLoading = false;
