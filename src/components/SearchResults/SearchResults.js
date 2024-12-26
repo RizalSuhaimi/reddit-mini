@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import ROUTES from "../../App/Routes";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
     selectSearchResults,
     selectSearchTerm,
@@ -12,6 +10,7 @@ import {
 import RedditPosts from "../RedditPosts/RedditPosts";
 import Subreddits from "../Subreddits/Subreddits";
 
+// SearchResults will not have infinite scroll (limited to 25 hits). The use simply has to be more specific when searching
 const SearchResults = () => {
     const searchResults = useSelector(selectSearchResults);
     const searchTerm = useSelector(selectSearchTerm)

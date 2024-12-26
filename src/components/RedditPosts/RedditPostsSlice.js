@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const loadRedditPosts = createAsyncThunk(
     "redditPosts/loadRedditPosts",
-    async ({subreddit = "popular", after=null}, thunkApi) => {
+    async ({ subreddit = "popular", after=null }, thunkApi) => {
         try {
             const response = await fetch(`https://www.reddit.com/r/${subreddit}/.json?${after ? `after=${after}` : ""}`);
 
@@ -28,16 +28,22 @@ export const loadRedditPosts = createAsyncThunk(
     }
 );
 
+const initialState = {
+    redditPosts: [],
+    after: null,
+    isLoading: false,
+    hasError: false,
+    errorMessage: "", // Store error message for more feedback
+}
+
 export const redditPostsSlice = createSlice({
     name: "redditPosts",
-    initialState: {
-        redditPosts: [],
-        after: null,
-        isLoading: false,
-        hasError: false,
-        errorMessage: "", // Store error message for more feedback
+    initialState,
+    reducers: {
+        resetState: (state) => { // This is needed for when users go from the HomePage to a Subreddit page and vice versa
+            return initialState;
+        }
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(loadRedditPosts.pending, (state) => {
@@ -47,7 +53,7 @@ export const redditPostsSlice = createSlice({
             })
             .addCase(loadRedditPosts.fulfilled, (state, action) => {
                 const { data } = action.payload;
-                state.redditPosts = data.children;
+                state.redditPosts = [...state.redditPosts, ...data.children];
                 state.after = data.after;
                 state.isLoading = false;
                 state.hasError = false;
@@ -62,6 +68,8 @@ export const redditPostsSlice = createSlice({
             })
     }
 })
+
+export const { resetState } = redditPostsSlice.actions;
 
 export const selectRedditPosts = (state) => state.redditPosts.redditPosts;
 export const selectAfter = (state) => state.redditPosts.after;
