@@ -23,12 +23,6 @@ const Root = () => {
             dispatch(loadSubreddits());
     }, [dispatch]);
 
-    if (isLoadingSubreddits) {
-        return <div>Getting subreddits</div>
-    } else if (subredditsErrorMessage) {
-        return <div>{subredditsErrorMessage}</div>
-    }
-
     return (
         <>
             <div className="bg-dark" data-bs-theme="dark">
@@ -44,7 +38,11 @@ const Root = () => {
                 </Link>
             </div>
             <div>
-                <Subreddits subreddits={subreddits} calledFrom="Root" />
+                {isLoadingSubreddits && <div>Loading subreddits</div>}
+                {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}
+                {subreddits.length > 0 && 
+                    <Subreddits subreddits={subreddits} calledFrom="Root" />
+                }
             </div>
             <Outlet />
         </>

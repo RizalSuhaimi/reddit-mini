@@ -14,6 +14,7 @@ import RedditPosts from "../RedditPosts/RedditPosts";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const HomePage = () => {
+    console.log("HomePage is rendered")
     const dispatch = useDispatch();
     const location = useLocation();
     const redditPosts = useSelector(selectRedditPosts);
@@ -39,7 +40,7 @@ const HomePage = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [after, isLoadingRedditPosts, dispatch])
 
-    
+
     useEffect(() => {
         return () => {
             dispatch(resetState());
