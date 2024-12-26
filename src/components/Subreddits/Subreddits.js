@@ -8,15 +8,15 @@ import {
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
-const Subreddits = ({ fetchResponse, calledFrom }) => {
+const Subreddits = ({ subreddits, calledFrom }) => {
     const dispatch = useDispatch();
 
     if (calledFrom === "Root") {
         return (
             <>
-                {fetchResponse ? 
+                {subreddits.length > 0 ? 
                     <ul>
-                        {fetchResponse.children.map((subreddit) => (
+                        {subreddits.map((subreddit) => (
                             <li key={subreddit.data.id}>
                                 <Link 
                                     to={ROUTES.subredditRoute(subreddit.data.display_name)}
@@ -40,9 +40,9 @@ const Subreddits = ({ fetchResponse, calledFrom }) => {
     } else if (calledFrom === "SearchResults") {
         return (
             <>
-                {fetchResponse ? 
+                {subreddits.length > 0 ? 
                     <ul>
-                        {fetchResponse.children.map((subreddit) => (
+                        {subreddits.map((subreddit) => (
                             <li key={subreddit.data.id}>
                                 <Link 
                                     to={ROUTES.subredditRoute(subreddit.data.display_name)}

@@ -44,7 +44,7 @@ const Root = () => {
                 </Link>
             </div>
             <div>
-                <Subreddits fetchResponse={subreddits} calledFrom="Root" />
+                <Subreddits subreddits={subreddits} calledFrom="Root" />
             </div>
             <Outlet />
         </>

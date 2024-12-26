@@ -8,14 +8,14 @@ import {
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
-const RedditPosts = ({fetchResponse}) => {
+const RedditPosts = ({redditPosts}) => {
     const dispatch = useDispatch();
 
     return (
         <>
-            {Object.keys(fetchResponse).length > 0 ? 
+            {redditPosts.length > 0 ? 
                 <ol>
-                    {fetchResponse.children.map((post) => (
+                    {redditPosts.map((post) => (
                         <li key={post.data.id}>
                             <Link 
                                 to={ROUTES.fullPostRoute(post.data.permalink)}

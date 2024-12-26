@@ -31,7 +31,7 @@ export const loadRedditPosts = createAsyncThunk(
 export const redditPostsSlice = createSlice({
     name: "redditPosts",
     initialState: {
-        redditPosts: {},
+        redditPosts: [],
         after: null,
         isLoading: false,
         hasError: false,
@@ -47,7 +47,8 @@ export const redditPostsSlice = createSlice({
             })
             .addCase(loadRedditPosts.fulfilled, (state, action) => {
                 const { data } = action.payload;
-                state.redditPosts = data;
+                state.redditPosts = data.children;
+                state.after = data.after;
                 state.isLoading = false;
                 state.hasError = false;
                 state.errorMessage = "";
@@ -55,13 +56,15 @@ export const redditPostsSlice = createSlice({
             .addCase(loadRedditPosts.rejected, (state, action) => {
                 state.isLoading = false;
                 state.hasError = true;
-                state.redditPosts = null;
+                state.redditPosts = {};
+                state.after = null;
                 state.errorMessage = action.payload || "Failed to load Reddit posts";
             })
     }
 })
 
 export const selectRedditPosts = (state) => state.redditPosts.redditPosts;
+export const selectAfter = (state) => state.redditPosts.after;
 export const isLoading = (state) => state.redditPosts.isLoading;
 export const selectErrorMessage = (state) => state.redditPosts.errorMessage;
 

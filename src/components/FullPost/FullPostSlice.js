@@ -28,7 +28,8 @@ export const loadFullPost = createAsyncThunk(
 export const fullPostSlice = createSlice({
     name: "fullPost",
     initialState: {
-        fullPost: null,
+        fullPost: {},
+        comments: [],
         isLoading: false,
         hasError: false,
         errorMessage: "", // Store error message for more feedback
@@ -42,20 +43,23 @@ export const fullPostSlice = createSlice({
                 state.errorMessage = "";
             })
             .addCase(loadFullPost.fulfilled, (state, action) => {
-                state.fullPost = action.payload
+                state.fullPost = action.payload[0].data.children[0].data;
+                state.comments = action.payload[1].data.children;
                 state.isLoading = false;
                 state.hasError = false;
             })
             .addCase(loadFullPost.rejected, (state, action) => {
                 state.isLoading = false;
                 state.hasError = true;
-                state.fullPost = null;
+                state.fullPost = {};
+                state.comments = [];
                 state.errorMessage = action.payload || "Failed to load Reddit post";
             })
     }
 })
 
 export const selectFullPost = (state) => state.fullPost.fullPost;
+export const selectComments = (state) => state.fullPost.comments;
 export const isLoading = (state) => state.fullPost.isLoading;
 export const selectErrorMessage = (state) => state.fullPost.errorMessage;
 

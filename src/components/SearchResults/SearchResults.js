@@ -27,13 +27,13 @@ const SearchResults = () => {
 
     return (
         <div>
-            {searchResults.data.children.length > 0 ? 
+            {searchResults.length > 0 ? 
                 <>
                     <h2>Search Results for {searchTerm}</h2>
                     {searchConstraint === "posts" ? 
-                        <RedditPosts fetchResponse={searchResults} />
+                        <RedditPosts redditPosts={searchResults} />
                         :
-                        <Subreddits fetchResponse={searchResults} calledFrom="SearchResults" />
+                        <Subreddits subreddits={searchResults} calledFrom="SearchResults" />
                     }
                 </>
                 :

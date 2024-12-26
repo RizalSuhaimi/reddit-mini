@@ -32,7 +32,7 @@ export const loadSubreddits = createAsyncThunk(
 export const subredditsSlice = createSlice({
     name: "subreddits",
     initialState: {
-        subreddits: null,
+        subreddits: [],
         isLoading: false,
         hasError: false,
         errorMessage: "", // Store error message for more feedback
@@ -47,14 +47,14 @@ export const subredditsSlice = createSlice({
             })
             .addCase(loadSubreddits.fulfilled, (state, action) => {
                 const { data } = action.payload;
-                state.subreddits = data;
+                state.subreddits = data.children;
                 state.isLoading = false;
                 state.hasError = false;
             })
             .addCase(loadSubreddits.rejected, (state, action) => {
                 state.isLoading = false;
                 state.hasError = true;
-                state.subreddits = null;
+                state.subreddits = [];
                 state.errorMessage = action.payload || "Failed to load Subreddits";
             })
     }

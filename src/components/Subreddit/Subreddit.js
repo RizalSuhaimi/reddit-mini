@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { 
@@ -30,7 +30,7 @@ const Subreddit = () => {
                 <p>PH subreddit icon</p>
                 <h2>r/{subreddit}</h2>
             </div>
-            <RedditPosts fetchResponse={redditPosts} />
+            <RedditPosts redditPosts={redditPosts} />
         </div>
     )
 }

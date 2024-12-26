@@ -15,7 +15,7 @@ export const runSearch = createAsyncThunk(
             url = `https://www.reddit.com/search.json?q=${encodedSearchTerm}`
         } else {
             if (hasSpecialCharacters) {
-                return thunkApi.rejectWithValue(`There are no subreddits with special characters (eg. ~ ! @ # $ )`)
+                return thunkApi.rejectWithValue(`There are no subreddits with special characters (eg. ~ ! @ # $ etc.)`)
             }
             url = `https://www.reddit.com/search.json?q=${encodedSearchTerm}&type=sr`
         }
@@ -44,7 +44,7 @@ export const runSearch = createAsyncThunk(
 export const searchResultsSlice = createSlice({
     name: "searchResults",
     initialState: {
-        searchResults: null,
+        searchResults: [],
         searchTerm: "",
         searchConstraint: "",
         isLoading: false,
@@ -60,16 +60,19 @@ export const searchResultsSlice = createSlice({
                 state.errorMessage = "";
             })
             .addCase(runSearch.fulfilled, (state, action) => {
-                state.searchResults = action.payload.jsonResponse
-                state.searchTerm = action.payload.searchTerm
-                state.searchConstraint = action.payload.searchConstraint
+                const { data } = action.payload.jsonResponse;
+                state.searchResults = data.children;
+                state.searchTerm = action.payload.searchTerm;
+                state.searchConstraint = action.payload.searchConstraint;
                 state.isLoading = false;
                 state.hasError = false;
             })
             .addCase(runSearch.rejected, (state, action) => {
                 state.isLoading = false;
                 state.hasError = true;
-                state.searchResults = null;
+                state.searchResults = [];
+                state.searchTerm = "";
+                state.searchConstraint = "";
                 state.errorMessage = action.payload || "Failed to run the search";
             })
     }

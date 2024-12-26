@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
 import 
 { 
-    loadFullPost,
     selectFullPost,
+    selectComments,
     selectErrorMessage,
     isLoading
 } from "./FullPostSlice";
 
 const FullPost = () => {
-    const fullPost = useSelector(selectFullPost)
+    const fullPost = useSelector(selectFullPost);
+    const comments = useSelector(selectComments);
     const isLoadingFullPost = useSelector(isLoading);
     const fullPostErrorMessage = useSelector(selectErrorMessage);
 
@@ -22,22 +22,27 @@ const FullPost = () => {
 
     return (
         <div>
-            {fullPost ? 
+            {Object.keys(fullPost).length > 0 ? 
                 <>
-                    <h3>{fullPost[0].data.children[0].data.title}</h3>
-                    <p>{fullPost[0].data.children[0].data.selftext}</p>
-                    <ul>
-                        {fullPost[1].data.children.map((comment) => (
-                        <li key={comment.data.id}>
-                            <h4>
-                                {comment.data.author}
-                            </h4>
-                            <p>
-                                {comment.data.body}
-                            </p>
-                        </li>
-                        ))}
-                    </ul>
+                    <h3>{fullPost.title}</h3>
+                    <p>{fullPost.selftext}</p>
+                    {comments.length > 0 ?
+                        <ul>
+                            {comments.map((comment) => (
+                                <li key={comment.data.id}>
+                                    <h4>
+                                        {comment.data.author}
+                                    </h4>
+                                    <p>
+                                        {comment.data.body}
+                                    </p>
+                                </li>
+                            ))}
+                        </ul>
+                    :
+                        <p>No comments yet</p>
+                    }
+                    
                 </>
                 :
                 <h3>Full post is unavailable</h3>
