@@ -17,8 +17,12 @@ const SearchBar = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(runSearch({searchTerm, searchConstraint}));
-        navigate(ROUTES.searchRoute());
+        if (searchTerm) {
+            dispatch(runSearch({searchTerm, searchConstraint}));
+            navigate(ROUTES.searchRoute());
+        } else {
+            alert("Search bar cannot be empty")
+        }
     }
 
     return (

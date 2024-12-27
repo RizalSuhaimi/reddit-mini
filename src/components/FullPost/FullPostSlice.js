@@ -25,6 +25,7 @@ export const loadFullPost = createAsyncThunk(
     }
 );
 
+// No need to implement infinite scroll for this because the fetch call is not limited to getting only 25 comments at a time
 export const fullPostSlice = createSlice({
     name: "fullPost",
     initialState: {

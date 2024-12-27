@@ -7,7 +7,8 @@ import {
     selectAfter,
     selectErrorMessage,
     isLoading,
-    resetState
+    resetState,
+    gotAllPosts
 } from "../RedditPosts/RedditPostsSlice";
 import RedditPosts from "../RedditPosts/RedditPosts";
 import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
@@ -21,12 +22,13 @@ const Subreddit = () => {
     const location = useLocation();
     const redditPosts = useSelector(selectRedditPosts);
     const after = useSelector(selectAfter);
+    const stopInfiniteScroll = useSelector(gotAllPosts);
     const isLoadingRedditPosts = useSelector(isLoading);
     const redditPostsErrorMessage = useSelector(selectErrorMessage);
     const { subreddit } = useParams();
 
 
-    const handleScroll = handleInfiniteScroll(dispatch, isLoadingRedditPosts, loadRedditPosts, "loadRedditPosts", { after });
+    const handleScroll = handleInfiniteScroll(dispatch, isLoadingRedditPosts, loadRedditPosts, "loadRedditPosts", { subreddit, after }, stopInfiniteScroll);
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
@@ -40,7 +42,8 @@ const Subreddit = () => {
     }, [location, dispatch])
 
     // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
-    const initialLoading = isLoadingRedditPosts && redditPosts.length === 0;
+    const initialLoading = isLoadingRedditPosts && redditPosts.length === 0 && !stopInfiniteScroll;
+    const scrollLoading = isLoadingRedditPosts && redditPosts.length > 0 && !stopInfiniteScroll;
 
     return (
         <div>
@@ -54,7 +57,9 @@ const Subreddit = () => {
 
             {redditPosts.length > 0 && <RedditPosts redditPosts={redditPosts}/>}
             
-            {isLoadingRedditPosts && <div>Loading more posts...</div>}
+            {scrollLoading && <div>Loading more posts...</div>}
+
+            {stopInfiniteScroll && <div>No more posts...</div>}
         </div>
     )
 }

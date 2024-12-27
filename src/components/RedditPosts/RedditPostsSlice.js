@@ -7,7 +7,7 @@ export const loadRedditPosts = createAsyncThunk(
     async ({ subreddit = "popular", after=null }, thunkApi) => {
         try {
             const response = await fetch(`https://www.reddit.com/r/${subreddit}/.json?${after ? `after=${after}` : ""}`);
-
+            
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -31,6 +31,7 @@ export const loadRedditPosts = createAsyncThunk(
 const initialState = {
     redditPosts: [],
     after: null,
+    gotAllPosts: false,
     isLoading: false,
     hasError: false,
     errorMessage: "", // Store error message for more feedback
@@ -55,20 +56,26 @@ export const redditPostsSlice = createSlice({
                 const { data } = action.payload;
 
                 // Check if the results from the newer GET request is already present in the results of the earlier GET request
-                // Comparing objject to object is unreliable. Have to compare IDs
+                // Comparing object to object is unreliable. Have to compare IDs
                 let existingIds = [];
                 let filteredData = [];
                 if (state.redditPosts.length > 0) {
-                    existingIds = [...state.redditPosts.data.id]
+                    existingIds = state.redditPosts.map((post) => post.data.id);
+                    filteredData = data.children.filter((post) => {
+                        if (!existingIds.includes(post.data.id)) {
+                            return post;
+                        }
+                    })
+                } else {
+                    filteredData = data.children
                 }
                 
-                filteredData = data.children.filter((post) => {
-                    if (!state.redditPosts.includes(post)) {
-                        return post;
-                    } else {
-                        console.log("Found a post that is already in the state")
-                    }
-                })
+                // This is needed to stop inifinite scrolling once all possible results are retrieved
+                if (filteredData.length === 0) {
+                    state.gotAllPosts = true;
+                } else {
+                    state.gotAllPosts = false;
+                }
 
                 state.redditPosts = [...state.redditPosts, ...filteredData];
                 state.after = data.after;
@@ -90,6 +97,7 @@ export const { resetState } = redditPostsSlice.actions;
 
 export const selectRedditPosts = (state) => state.redditPosts.redditPosts;
 export const selectAfter = (state) => state.redditPosts.after;
+export const gotAllPosts = (state) => state.redditPosts.gotAllPosts;
 export const isLoading = (state) => state.redditPosts.isLoading;
 export const selectErrorMessage = (state) => state.redditPosts.errorMessage;
 

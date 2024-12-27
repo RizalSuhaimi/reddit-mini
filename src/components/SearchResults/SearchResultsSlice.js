@@ -5,10 +5,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // The URL being used to fetch reddit posts will change depending on whether it's the home page, a subreddit page, or a search query
 
+// use r/EducationResource to test out that infinite scroll stops when there are no more posts left
+
 export const runSearch = createAsyncThunk(
     "searchResults/runSearch",
-    async ({searchTerm, searchConstraint}, thunkApi) => {
-        const hasSpecialCharacters = /[^a-zA-Z0-9 ]/.test(searchTerm)
+    async ({ searchTerm, searchConstraint, after=null }, thunkApi) => {
+        const hasSpecialCharacters = /[^a-zA-Z0-9 /_]/.test(searchTerm)
         const encodedSearchTerm = encodeURIComponent(searchTerm)
         let url
         if (searchConstraint === "posts") {
@@ -41,17 +43,25 @@ export const runSearch = createAsyncThunk(
     }
 );
 
+const initialState = {
+    searchResults: [],
+    searchTerm: "",
+    searchConstraint: "",
+    after: null,
+    gotAllResults: false,
+    isLoading: false,
+    hasError: false,
+    errorMessage: "", // Store error message for more feedback
+}
+
 export const searchResultsSlice = createSlice({
     name: "searchResults",
-    initialState: {
-        searchResults: [],
-        searchTerm: "",
-        searchConstraint: "",
-        isLoading: false,
-        hasError: false,
-        errorMessage: "", // Store error message for more feedback
+    initialState,
+    reducers: {
+        resetState: (state) => {
+            return initialState;
+        }
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(runSearch.pending, (state) => {
