@@ -10,6 +10,7 @@ import {
     resetState
 } from "../RedditPosts/RedditPostsSlice";
 import RedditPosts from "../RedditPosts/RedditPosts";
+import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -27,16 +28,18 @@ const HomePage = () => {
     }, [dispatch]);
 
 
-    const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoadingRedditPosts) {
-            return;
-        }
-        // Dispatch action to load more posts when use scrolls to the bottom
-        dispatch(loadRedditPosts({ after }))
-    }
+    // const handleScroll = () => {
+    //     if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoadingRedditPosts) {
+    //         return;
+    //     }
+    //     // Dispatch action to load more posts when use scrolls to the bottom
+    //     dispatch(loadRedditPosts({ after }))
+    // }
+
+    const handleScroll = 
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleInfiniteScroll(isLoadingRedditPosts, loadRedditPosts, "loadRedditPosts", { after }));
         return () => window.removeEventListener("scroll", handleScroll);
     }, [after, isLoadingRedditPosts, dispatch])
 
@@ -47,16 +50,18 @@ const HomePage = () => {
         };
     }, [location, dispatch])
 
-    if (isLoadingRedditPosts & redditPosts.length === 0) { // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
-        return <div>Content is loading</div>
-    } else if (redditPostsErrorMessage) {
-        return <div>{redditPostsErrorMessage}</div>
-    }
+    // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
+    const initialLoading = isLoadingRedditPosts && redditPosts.length === 0;
 
     return (
         <div>
             <h2>Trending in Reddit</h2>
-            <RedditPosts redditPosts={redditPosts}/>
+            {initialLoading && <div>Content is loading</div>}
+
+            {redditPostsErrorMessage && <div>{redditPostsErrorMessage}</div>}
+
+            {redditPosts.length > 0 && <RedditPosts redditPosts={redditPosts}/>}
+
             {isLoadingRedditPosts && <div>Loading more posts...</div>}
         </div>
     )

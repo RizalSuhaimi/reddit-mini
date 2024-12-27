@@ -39,7 +39,9 @@ const Root = () => {
             </div>
             <div>
                 {isLoadingSubreddits && <div>Loading subreddits</div>}
+
                 {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}
+                
                 {subreddits.length > 0 && 
                     <Subreddits subreddits={subreddits} calledFrom="Root" />
                 }

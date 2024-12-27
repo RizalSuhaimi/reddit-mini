@@ -44,11 +44,8 @@ const Subreddit = () => {
         };
     }, [location, dispatch])
 
-    if (isLoadingRedditPosts & redditPosts.length === 0) { // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
-        return <div>Content is loading</div>
-    } else if (redditPostsErrorMessage) {
-        return <div>{redditPostsErrorMessage}</div>
-    }
+    // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
+    const initialLoading = isLoadingRedditPosts && redditPosts.length === 0;
 
     return (
         <div>
@@ -56,7 +53,12 @@ const Subreddit = () => {
                 <p>PH subreddit icon</p>
                 <h2>r/{subreddit}</h2>
             </div>
-            <RedditPosts redditPosts={redditPosts} />
+            {initialLoading && <div>Content is loading</div>}  
+
+            {redditPostsErrorMessage && <div>{redditPostsErrorMessage}</div>}
+
+            {redditPosts.length > 0 && <RedditPosts redditPosts={redditPosts}/>}
+            
             {isLoadingRedditPosts && <div>Loading more posts...</div>}
         </div>
     )
