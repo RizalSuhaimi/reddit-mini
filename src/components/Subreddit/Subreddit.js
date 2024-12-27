@@ -10,6 +10,7 @@ import {
     resetState
 } from "../RedditPosts/RedditPostsSlice";
 import RedditPosts from "../RedditPosts/RedditPosts";
+import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -25,13 +26,7 @@ const Subreddit = () => {
     const { subreddit } = useParams();
 
 
-    const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoadingRedditPosts) {
-            return;
-        }
-        // Dispatch action to load more posts when use scrolls to the bottom
-        dispatch(loadRedditPosts({ subreddit, after }))
-    };
+    const handleScroll = handleInfiniteScroll(dispatch, isLoadingRedditPosts, loadRedditPosts, "loadRedditPosts", { after });
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);

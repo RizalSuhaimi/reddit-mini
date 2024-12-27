@@ -27,19 +27,10 @@ const HomePage = () => {
         dispatch(loadRedditPosts({}));
     }, [dispatch]);
 
-
-    // const handleScroll = () => {
-    //     if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoadingRedditPosts) {
-    //         return;
-    //     }
-    //     // Dispatch action to load more posts when use scrolls to the bottom
-    //     dispatch(loadRedditPosts({ after }))
-    // }
-
-    const handleScroll = 
+    const handleScroll =  handleInfiniteScroll(dispatch, isLoadingRedditPosts, loadRedditPosts, "loadRedditPosts", { after });
 
     useEffect(() => {
-        window.addEventListener("scroll", handleInfiniteScroll(isLoadingRedditPosts, loadRedditPosts, "loadRedditPosts", { after }));
+        window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [after, isLoadingRedditPosts, dispatch])
 

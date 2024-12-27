@@ -1,8 +1,4 @@
-import { useDispatch } from "react-redux";
-
-const dispatch = useDispatch();
-
-const handleInfiniteScroll = (isLoadingFetch, fetchCall, fetchCallName, fetchArguments) => {
+const handleInfiniteScroll = (dispatch, isLoadingFetch, fetchCall, fetchCallName, fetchArguments) => {
     return () => {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoadingFetch) {
             return;
@@ -13,6 +9,8 @@ const handleInfiniteScroll = (isLoadingFetch, fetchCall, fetchCallName, fetchArg
             case "loadRedditPosts":
                 const { subreddit="popular", after=null } = fetchArguments;
                 dispatch(fetchCall({ subreddit, after }));
+                break;
+            case "loadSubreddits":
                 break;
             default:
                 throw new Error(`${fetchCallName} Fetch command does not exist.`)

@@ -10,7 +10,7 @@ import {
 import RedditPosts from "../RedditPosts/RedditPosts";
 import Subreddits from "../Subreddits/Subreddits";
 
-// SearchResults will not have infinite scroll (limited to 25 hits). The use simply has to be more specific when searching
+// SearchResults will not have infinite scroll (limited to 25 hits). The user simply has to be more specific when searching
 const SearchResults = () => {
     const searchResults = useSelector(selectSearchResults);
     const searchTerm = useSelector(selectSearchTerm)

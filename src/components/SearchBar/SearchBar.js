@@ -3,19 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../App/Routes";
 import {
-    runSearch,
-    selectSearchResults,
-    selectErrorMessage,
-    isLoading
+    runSearch
 } from "../SearchResults/SearchResultsSlice";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const SearchBar = () => {
     const dispatch = useDispatch();
-    const searchResults = useSelector(selectSearchResults);
-    const isLoadingSearchResults = useSelector(isLoading);
-    const searchErrorMessage = useSelector(selectErrorMessage);
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm] = useState("");

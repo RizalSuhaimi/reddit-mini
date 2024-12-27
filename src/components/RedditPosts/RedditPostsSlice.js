@@ -53,7 +53,24 @@ export const redditPostsSlice = createSlice({
             })
             .addCase(loadRedditPosts.fulfilled, (state, action) => {
                 const { data } = action.payload;
-                state.redditPosts = [...state.redditPosts, ...data.children];
+
+                // Check if the results from the newer GET request is already present in the results of the earlier GET request
+                // Comparing objject to object is unreliable. Have to compare IDs
+                let existingIds = [];
+                let filteredData = [];
+                if (state.redditPosts.length > 0) {
+                    existingIds = [...state.redditPosts.data.id]
+                }
+                
+                filteredData = data.children.filter((post) => {
+                    if (!state.redditPosts.includes(post)) {
+                        return post;
+                    } else {
+                        console.log("Found a post that is already in the state")
+                    }
+                })
+
+                state.redditPosts = [...state.redditPosts, ...filteredData];
                 state.after = data.after;
                 state.isLoading = false;
                 state.hasError = false;
