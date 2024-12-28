@@ -1,19 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import filterRepeatingElements from "../../utils/filterRepeatingElements";
 
-// Search queries will look like the link below
-// https://www.reddit.com/search.json?q=cake%20recipes
-
-// The URL being used to fetch reddit posts will change depending on whether it's the homme page, a subreddit page, or a search query
+// The URL being used to fetch reddit posts will change depending on whether it's the home page, a subreddit page, or a search query
 
 export const loadSubreddits = createAsyncThunk(
     "subreddits/loadSubreddits",
     async ({ after=null }, thunkApi) => {
         try {
-            const response = await fetch(`https://www.reddit.com/subreddits/.json?limit=10`);
+            const response = await fetch(`https://www.reddit.com/subreddits/.json${after ? `?after=${after}` : ""}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
+            console.log("loadSubreddits fetch called")
             let jsonResponse;
             try {
                 jsonResponse = await response.json();
@@ -33,6 +31,7 @@ export const subredditsSlice = createSlice({
     name: "subreddits",
     initialState: {
         subreddits: [],
+        after: null,
         gotAllSubreddits: false,
         isLoading: false,
         hasError: false,
@@ -48,11 +47,25 @@ export const subredditsSlice = createSlice({
             })
             .addCase(loadSubreddits.fulfilled, (state, action) => {
                 const { data } = action.payload;
-                state.subreddits = data.children;
+
+                // This prevents the user from seeing the same post more than once
+                const filteredData = filterRepeatingElements(state.subreddits, data.children);
+
+                // This is needed to stop inifinite scrolling once all possible results are retrieved
+                if (filteredData.length === 0) {
+                    state.gotAllSubreddits = true;
+                } else {
+                    state.gotAllSubreddits = false;
+                }
+
+                state.subreddits = [...state.subreddits, ...filteredData];
+                state.after = data.after;
                 state.isLoading = false;
                 state.hasError = false;
+                state.errorMessage = "";
             })
             .addCase(loadSubreddits.rejected, (state, action) => {
+                console.log(action.payload)
                 state.isLoading = false;
                 state.hasError = true;
                 state.subreddits = [];
@@ -62,6 +75,8 @@ export const subredditsSlice = createSlice({
 })
 
 export const selectSubreddits = (state) => state.subreddits.subreddits;
+export const selectAfter = (state) => state.subreddits.after;
+export const gotAllSubreddits = (state) => state.subreddits.gotAllSubreddits;
 export const isLoading = (state) => state.subreddits.isLoading;
 export const selectErrorMessage = (state) => state.subreddits.errorMessage;
 

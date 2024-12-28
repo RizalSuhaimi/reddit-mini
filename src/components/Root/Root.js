@@ -20,8 +20,10 @@ const Root = () => {
     const subredditsErrorMessage = useSelector(selectErrorMessage);
 
     useEffect(() => {
-            dispatch(loadSubreddits());
-    }, [dispatch]);
+        if (subreddits.length === 0) {
+            dispatch(loadSubreddits({}));
+        };
+    }, [subreddits.length, dispatch]);
 
     return (
         <>

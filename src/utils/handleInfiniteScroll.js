@@ -19,6 +19,8 @@ const handleInfiniteScroll = (dispatch, isLoadingFetch, fetchCall, fetchCallName
                 dispatch(fetchCall({ subreddit, after }));
                 break;
             case "loadSubreddits":
+                after = fetchArguments.after || null;
+                dispatch(fetchCall({ after }));
                 break;
             case "runSearch":
                 let { searchTerm, searchConstraint } = fetchArguments;

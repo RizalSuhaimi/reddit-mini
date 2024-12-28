@@ -28,7 +28,14 @@ const Subreddit = () => {
     const { subreddit } = useParams();
 
 
-    const handleScroll = handleInfiniteScroll(dispatch, isLoadingRedditPosts, loadRedditPosts, "loadRedditPosts", { subreddit, after }, stopInfiniteScroll);
+    const handleScroll = handleInfiniteScroll(
+        dispatch, 
+        isLoadingRedditPosts, 
+        loadRedditPosts, 
+        "loadRedditPosts", 
+        { subreddit, after }, 
+        stopInfiniteScroll
+    );
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
