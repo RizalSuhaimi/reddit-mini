@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import filterRepeatingElements from "../../utils/filterRepeatingElements";
 
 // Search queries will look like the link below
 // https://www.reddit.com/search.json?q=cake%20recipes
@@ -14,12 +15,12 @@ export const runSearch = createAsyncThunk(
         const encodedSearchTerm = encodeURIComponent(searchTerm)
         let url
         if (searchConstraint === "posts") {
-            url = `https://www.reddit.com/search.json?q=${encodedSearchTerm}`
+            url = `https://www.reddit.com/search.json?q=${encodedSearchTerm}${after ? `&after=${after}` : ""}`
         } else {
             if (hasSpecialCharacters) {
                 return thunkApi.rejectWithValue(`There are no subreddits with special characters (eg. ~ ! @ # $ etc.)`)
             }
-            url = `https://www.reddit.com/search.json?q=${encodedSearchTerm}&type=sr`
+            url = `https://www.reddit.com/search.json?q=${encodedSearchTerm}&type=sr${after ? `&after=${after}` : ""}`
         }
 
         try {
@@ -71,11 +72,24 @@ export const searchResultsSlice = createSlice({
             })
             .addCase(runSearch.fulfilled, (state, action) => {
                 const { data } = action.payload.jsonResponse;
-                state.searchResults = data.children;
+
+                // This prevents the user from seeing the same post more than once
+                const filteredData = filterRepeatingElements(state.searchResults, data.children);
+
+                // This is needed to stop inifinite scrolling once all possible results are retrieved
+                if (filteredData.length === 0) {
+                    state.gotAllResults = true;
+                } else {
+                    state.gotAllResults = false;
+                }
+
+                state.searchResults = [...state.searchResults, ...filteredData];
+                state.after = data.after;
                 state.searchTerm = action.payload.searchTerm;
                 state.searchConstraint = action.payload.searchConstraint;
                 state.isLoading = false;
                 state.hasError = false;
+                state.errorMessage = "";
             })
             .addCase(runSearch.rejected, (state, action) => {
                 state.isLoading = false;
@@ -88,7 +102,11 @@ export const searchResultsSlice = createSlice({
     }
 })
 
+export const { resetState } = searchResultsSlice.actions;
+
 export const selectSearchResults = (state) => state.searchResults.searchResults;
+export const selectAfter = (state) => state.searchResults.after;
+export const gotAllResults = (state) => state.redditPosts.gotAllResults;
 export const selectSearchTerm = (state) => state.searchResults.searchTerm;
 export const selectSearchConstraint = (state) => state.searchResults.searchConstraint;
 export const isLoading = (state) => state.searchResults.isLoading;

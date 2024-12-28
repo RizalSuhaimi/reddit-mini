@@ -1,15 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ROUTES from "../../App/Routes";
 import {
     loadRedditPosts
 } from "../RedditPosts/RedditPostsSlice";
+import { 
+    loadSubreddits,
+    selectSubreddits,
+    isLoading,
+    selectErrorMessage
+} from "./SubredditsSlice";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
-const Subreddits = ({ subreddits, calledFrom }) => {
+const Subreddits = (props) => {
     const dispatch = useDispatch();
+    const { calledFrom } = props;
+
+    let subreddits = [];
+    subreddits = props.subreddits || useSelector(selectSubreddits)
+
+    const isLoadingSubreddits = useSelector(isLoading);
+    const subredditsErrorMessage = useSelector(selectErrorMessage);
 
     if (calledFrom === "Root") {
         return (
@@ -26,7 +39,7 @@ const Subreddits = ({ subreddits, calledFrom }) => {
                                     }))}>
                                     <div>
                                         {/* <p>PH subreddit icon</p> */}
-                                        <h3>{subreddit.data.display_name_prefixed}</h3>
+                                        <h4>{subreddit.data.display_name_prefixed}</h4>
                                     </div>
                                 </Link>
                             </li>
@@ -35,13 +48,20 @@ const Subreddits = ({ subreddits, calledFrom }) => {
                     :
                     <p>Content unavailable</p>
                 }
+                <Link 
+                    to={ROUTES.subredditsRoute}
+                    aria-label="See more subreddits"
+                    onClick={() => dispatch(loadSubreddits())}
+                >
+                    <p>View more subreddits</p>
+                </Link>
             </>
         )
     } else if (calledFrom === "SearchResults") {
         return (
             <>
                 {subreddits.length > 0 ? 
-                    <ul>
+                    <ol>
                         {subreddits.map((subreddit) => (
                             <li key={subreddit.data.id}>
                                 <Link 
@@ -60,12 +80,14 @@ const Subreddits = ({ subreddits, calledFrom }) => {
                                 </Link>
                             </li>
                         ))}
-                    </ul>
+                    </ol>
                     :
-                    <p>Content unavailable</p>
+                    <p>Subreddits unavailable</p>
                 }
             </>
         )
+    } else {
+        
     }
 }
 

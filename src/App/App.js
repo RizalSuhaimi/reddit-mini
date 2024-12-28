@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Root from "../components/Root/Root"
 import HomePage from '../components/Homepage/HomePage';
+import Subreddits from '../components/Subreddits/Subreddits';
 import Subreddit from '../components/Subreddit/Subreddit';
 import FullPost from '../components/FullPost/FullPost';
 import SearchResults from '../components/SearchResults/SearchResults';
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path='/' element={ <Root/> }>
           <Route index element={ <HomePage/> } />
+          <Route path="subreddits" element={ <Subreddits/> } />
           <Route path="r/:subreddit" element={ <Subreddit/> } />
           <Route path="r/:subreddit/comments/:postId/:postTitle" element={ <FullPost/> } />
           <Route path="search" element={ <SearchResults/> } />

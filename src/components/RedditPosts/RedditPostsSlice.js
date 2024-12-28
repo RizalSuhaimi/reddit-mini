@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import filterRepeatingElements from "../../utils/filterRepeatingElements";
 
 // The URL being used to fetch reddit posts will change depending on whether it's the home page, a subreddit page, or a search query
 
@@ -55,20 +56,8 @@ export const redditPostsSlice = createSlice({
             .addCase(loadRedditPosts.fulfilled, (state, action) => {
                 const { data } = action.payload;
 
-                // Check if the results from the newer GET request is already present in the results of the earlier GET request
-                // Comparing object to object is unreliable. Have to compare IDs
-                let existingIds = [];
-                let filteredData = [];
-                if (state.redditPosts.length > 0) {
-                    existingIds = state.redditPosts.map((post) => post.data.id);
-                    filteredData = data.children.filter((post) => {
-                        if (!existingIds.includes(post.data.id)) {
-                            return post;
-                        }
-                    })
-                } else {
-                    filteredData = data.children
-                }
+                // This prevents the user from seeing the same post more than once
+                const filteredData = filterRepeatingElements(state.redditPosts, data.children);
                 
                 // This is needed to stop inifinite scrolling once all possible results are retrieved
                 if (filteredData.length === 0) {

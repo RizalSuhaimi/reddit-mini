@@ -28,7 +28,14 @@ const HomePage = () => {
         dispatch(loadRedditPosts({}));
     }, [dispatch]);
 
-    const handleScroll =  handleInfiniteScroll(dispatch, isLoadingRedditPosts, loadRedditPosts, "loadRedditPosts", { after }, stopInfiniteScroll);
+    const handleScroll =  handleInfiniteScroll(
+        dispatch, 
+        isLoadingRedditPosts, 
+        loadRedditPosts, 
+        "loadRedditPosts", 
+        { after }, 
+        stopInfiniteScroll
+    );
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);

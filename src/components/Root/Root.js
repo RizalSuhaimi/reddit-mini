@@ -38,6 +38,7 @@ const Root = () => {
                 </Link>
             </div>
             <div>
+                <h3>Communities</h3>
                 {isLoadingSubreddits && <div>Loading subreddits</div>}
 
                 {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}

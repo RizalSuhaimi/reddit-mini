@@ -7,7 +7,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const loadSubreddits = createAsyncThunk(
     "subreddits/loadSubreddits",
-    async (arg, thunkApi) => {
+    async ({ after=null }, thunkApi) => {
         try {
             const response = await fetch(`https://www.reddit.com/subreddits/.json?limit=10`);
             if (!response.ok) {
@@ -33,6 +33,7 @@ export const subredditsSlice = createSlice({
     name: "subreddits",
     initialState: {
         subreddits: [],
+        gotAllSubreddits: false,
         isLoading: false,
         hasError: false,
         errorMessage: "", // Store error message for more feedback
