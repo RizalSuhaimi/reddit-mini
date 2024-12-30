@@ -40,7 +40,7 @@ const Subreddit = () => {
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [after, isLoadingRedditPosts, dispatch])
+    }, [after, isLoadingRedditPosts, dispatch, stopInfiniteScroll])
 
     useEffect(() => {
         return () => {

@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../App/Routes";
 import {
     runSearch,
     resetState as resetSearchResultsState
 } from "../SearchResults/SearchResultsSlice";
-import { resetState as resetRedditPostsState } from "../RedditPosts/RedditPostsSlice";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -21,7 +20,7 @@ const SearchBar = () => {
         event.preventDefault();
         if (searchTerm) {
             dispatch(resetSearchResultsState());
-            dispatch(runSearch({searchTerm, searchConstraint}));
+            dispatch(runSearch({ searchTerm, searchConstraint }));
             navigate(ROUTES.searchRoute());
         } else {
             alert("Search bar cannot be empty")

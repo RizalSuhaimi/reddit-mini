@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path='/' element={ <Root/> }>
           <Route index element={ <HomePage/> } />
-          <Route path="subreddits" element={ <Subreddits/> } />
+          <Route path="subreddits" element={ <Subreddits calledFrom="App"/> } />
           <Route path="r/:subreddit" element={ <Subreddit/> } />
           <Route path="r/:subreddit/comments/:postId/:postTitle" element={ <FullPost/> } />
           <Route path="search" element={ <SearchResults/> } />

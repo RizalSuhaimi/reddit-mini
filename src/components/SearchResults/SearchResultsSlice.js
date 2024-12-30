@@ -28,7 +28,7 @@ export const runSearch = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
+            console.log("runSearch fetch called")
             let jsonResponse;
             try {
                 jsonResponse = await response.json();
@@ -73,7 +73,7 @@ export const searchResultsSlice = createSlice({
             .addCase(runSearch.fulfilled, (state, action) => {
                 const { data } = action.payload.jsonResponse;
 
-                // This prevents the user from seeing the same post more than once
+                // This prevents the user from seeing the same result more than once
                 const filteredData = filterRepeatingElements(state.searchResults, data.children);
 
                 // This is needed to stop inifinite scrolling once all possible results are retrieved

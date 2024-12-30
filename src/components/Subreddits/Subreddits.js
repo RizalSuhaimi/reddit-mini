@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ROUTES from "../../App/Routes";
 import {
@@ -18,10 +18,11 @@ import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const Subreddits = (props) => {
+    const location = useLocation();
     const dispatch = useDispatch();
     const { calledFrom } = props;
 
-    let subreddits = useSelector(selectSubreddits)
+    let subreddits = useSelector(selectSubreddits) // The value will be changed if Subreddits component is called from SearchResults
 
     const after = useSelector(selectAfter);
     const stopInfiniteScroll = useSelector(gotAllSubreddits);
@@ -38,9 +39,12 @@ const Subreddits = (props) => {
     );
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+        if (location.pathname === "/subreddits") {
+            window.addEventListener("scroll", handleScroll);
+        }
+        
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [after, isLoadingSubreddits, dispatch])
+    }, [after, isLoadingSubreddits, dispatch, location, stopInfiniteScroll])
 
     // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
     const initialLoading = isLoadingSubreddits && subreddits.length === 0 && !stopInfiniteScroll;
@@ -73,13 +77,14 @@ const Subreddits = (props) => {
                 <Link 
                     to={ROUTES.subredditsRoute()}
                     aria-label="See more subreddits"
-                    onClick={() => dispatch(loadSubreddits())} maopsejn;af  // Fix this</>
                 >
                     <p>View more subreddits</p>
                 </Link>
             </>
         )
     } else if (calledFrom === "SearchResults") {
+        subreddits = props.subreddits;
+
         return (
             <>
                 {subreddits.length > 0 ? 
@@ -108,9 +113,10 @@ const Subreddits = (props) => {
                 }
             </>
         )
-    } else {
+    } else if (calledFrom === "App") {
         return (
             <div>
+                <h2>Communities</h2>
                 {initialLoading && <div>Content is loading</div>}
 
                 {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}

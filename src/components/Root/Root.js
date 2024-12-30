@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
-import ROUTES from "../../App/Routes";
 import { useDispatch, useSelector } from "react-redux";
 import {
     loadSubreddits,
@@ -46,7 +45,7 @@ const Root = () => {
                 {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}
                 
                 {subreddits.length > 0 && 
-                    <Subreddits subreddits={subreddits} calledFrom="Root" />
+                    <Subreddits calledFrom="Root" />
                 }
             </div>
             <Outlet />

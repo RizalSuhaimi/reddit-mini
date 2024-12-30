@@ -27,17 +27,23 @@ export const loadSubreddits = createAsyncThunk(
     }
 );
 
+const initialState = {
+    subreddits: [],
+    after: null,
+    gotAllSubreddits: false,
+    isLoading: false,
+    hasError: false,
+    errorMessage: "", // Store error message for more feedback
+}
+
 export const subredditsSlice = createSlice({
     name: "subreddits",
-    initialState: {
-        subreddits: [],
-        after: null,
-        gotAllSubreddits: false,
-        isLoading: false,
-        hasError: false,
-        errorMessage: "", // Store error message for more feedback
+    initialState,
+    reducers: {
+        resetState: (state) => {
+            return initialState;
+        }
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(loadSubreddits.pending, (state) => {
@@ -48,7 +54,7 @@ export const subredditsSlice = createSlice({
             .addCase(loadSubreddits.fulfilled, (state, action) => {
                 const { data } = action.payload;
 
-                // This prevents the user from seeing the same post more than once
+                // This prevents the user from seeing the same subreddit more than once
                 const filteredData = filterRepeatingElements(state.subreddits, data.children);
 
                 // This is needed to stop inifinite scrolling once all possible results are retrieved
@@ -65,7 +71,6 @@ export const subredditsSlice = createSlice({
                 state.errorMessage = "";
             })
             .addCase(loadSubreddits.rejected, (state, action) => {
-                console.log(action.payload)
                 state.isLoading = false;
                 state.hasError = true;
                 state.subreddits = [];
@@ -73,6 +78,8 @@ export const subredditsSlice = createSlice({
             })
     }
 })
+
+export const { resetState } = subredditsSlice.actions;
 
 export const selectSubreddits = (state) => state.subreddits.subreddits;
 export const selectAfter = (state) => state.subreddits.after;

@@ -12,7 +12,7 @@ export const loadRedditPosts = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+            console.log("loadRedditPosts fetch called")
             let jsonResponse;
             try {
                 jsonResponse = await response.json();

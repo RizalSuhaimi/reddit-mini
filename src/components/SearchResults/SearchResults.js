@@ -41,7 +41,7 @@ const SearchResults = () => {
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [after, isLoadingSearchResults, dispatch])
+    }, [after, isLoadingSearchResults, dispatch, stopInfiniteScroll])
 
     useEffect(() => {
         return () => {
@@ -67,7 +67,7 @@ const SearchResults = () => {
                         :
                         <Subreddits subreddits={searchResults} calledFrom="SearchResults" />
                     }
-                </>                
+                </>
             }
 
             {noResultsFound && <h3>Cannot find anything for {searchTerm}</h3>}
