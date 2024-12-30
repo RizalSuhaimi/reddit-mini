@@ -59,13 +59,15 @@ export const searchResultsSlice = createSlice({
     name: "searchResults",
     initialState,
     reducers: {
-        resetState: (state) => {
+        resetState: (state, action) => {
+            console.log(`resetState for SearchResults was called by ${action.payload}`)
             return initialState;
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(runSearch.pending, (state) => {
+                console.log("runSearch is pending")
                 state.isLoading = true;
                 state.hasError = false;
                 state.errorMessage = "";

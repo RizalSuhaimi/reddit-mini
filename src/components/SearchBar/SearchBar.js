@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ROUTES from "../../App/Routes";
 import {
     runSearch,
-    resetState as resetSearchResultsState
+    resetState
 } from "../SearchResults/SearchResultsSlice";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const SearchBar = () => {
+    const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -19,9 +20,11 @@ const SearchBar = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (searchTerm) {
-            dispatch(resetSearchResultsState());
+            dispatch(resetState("Search Button"));
             dispatch(runSearch({ searchTerm, searchConstraint }));
-            navigate(ROUTES.searchRoute());
+            if (location.pathname !== "/search") {
+                navigate(ROUTES.searchRoute());
+            }
         } else {
             alert("Search bar cannot be empty")
         }

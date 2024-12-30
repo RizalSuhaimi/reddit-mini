@@ -45,7 +45,7 @@ const SearchResults = () => {
 
     useEffect(() => {
         return () => {
-            dispatch(resetState());
+            dispatch(resetState("SearchResults useEffect()"));
         };
     }, [location, dispatch])
 
@@ -72,7 +72,7 @@ const SearchResults = () => {
 
             {noResultsFound && <h3>Cannot find anything for {searchTerm}</h3>}
 
-            {scrollLoading && <div>Loading more results...</div>}
+            {scrollLoading && <h3>Loading more results...</h3>}
 
             {stopInfiniteScroll && <div>No more posts...</div>}
         </div>
