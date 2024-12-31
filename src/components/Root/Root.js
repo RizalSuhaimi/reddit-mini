@@ -22,34 +22,100 @@ const Root = () => {
         if (subreddits.length === 0) {
             dispatch(loadSubreddits({}));
         };
-    }, [subreddits.length, dispatch]);
+    }, [subreddits, dispatch]);
 
     return (
-        <>
-            <div className="bg-dark" data-bs-theme="dark">
-                <h1 className="text-primary container">REDDITmini</h1>
-                <SearchBar />
-            </div>
-            <div>
-                <Link
-                    to="/"
-                    aria-label="Go Home"
-                >
-                    <h4>Home</h4>
-                </Link>
-            </div>
-            <div>
-                <h3>Communities</h3>
-                {isLoadingSubreddits && <div>Loading subreddits</div>}
+        <div 
+            className="
+                bg-dark
+                text-white
+            " 
+            data-bs-theme="dark"
+        >
+            <div 
+                className="
+                    bg-dark 
+                    row 
+                    align-items-center 
+                    px-3 py-1 
+                    position-sticky 
+                    top-0 
+                    w-100 
+                    border-bottom 
+                    m-0
+                "
+            >
+                <div className="d-lg-none d-block text-white">
+                    ph tango
+                </div>
 
-                {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}
-                
-                {subreddits.length > 0 && 
-                    <Subreddits calledFrom="Root" />
-                }
+                <div className="col">
+                    <h1 className="text-primary">REDDITmini</h1>
+                </div>
+
+                <div className="col text-end">
+                    <SearchBar />
+                </div>
             </div>
-            <Outlet />
-        </>
+
+            <div 
+                className="
+                row
+                w-100
+                m-0
+                border-top
+                "
+            >
+                <div 
+                    className="
+                        col-lg-2 
+                        justify-content-center
+                        border-end
+                    "
+                >
+                    <div className="mt-3">
+                        <Link
+                            to="/"
+                            aria-label="Go Home"
+                            className="
+                                text-white
+                                text-decoration-none
+                                fs-5
+                            "
+                        >
+                            <p className="text-center">Home</p>
+                        </Link>
+                    </div>
+                    <div
+                        className="
+                            border-top 
+                            w-100 
+                            justify-content-center
+                            py-2 px-3
+                        "
+                    >
+                        <h4 className="">Communities</h4>
+
+                        {isLoadingSubreddits && <div>Loading subreddits</div>}
+
+                        {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}
+                        
+                        <div>
+                            {subreddits.length > 0 && 
+                                <Subreddits calledFrom="Root" />
+                            }
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div className="col-lg-10 border-start">
+                    <Outlet />
+                </div>
+            </div>
+            
+            
+        </div>
     )
 }
 

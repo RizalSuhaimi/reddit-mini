@@ -54,7 +54,7 @@ const HomePage = () => {
     const scrollLoading = isLoadingRedditPosts && redditPosts.length > 0 && !stopInfiniteScroll;
 
     return (
-        <div>
+        <>
             <h2>Trending in Reddit</h2>
             {initialLoading && <div>Content is loading</div>}
 
@@ -65,7 +65,7 @@ const HomePage = () => {
             {scrollLoading && <div>Loading more posts...</div>}
 
             {stopInfiniteScroll && <div>No more posts...</div>}
-        </div>
+        </>
     )
 }
 

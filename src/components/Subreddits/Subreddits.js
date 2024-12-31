@@ -16,6 +16,7 @@ import {
 import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 
 import "bootstrap/dist/css/bootstrap.min.css"
+import styles from "./Subreddits.module.css"
 
 const Subreddits = (props) => {
     const location = useLocation();
@@ -54,7 +55,13 @@ const Subreddits = (props) => {
         return (
             <>
                 {subreddits.length > 0 ? 
-                    <ul>
+                    <ul
+                        className="
+                            list-unstyled
+                            list-group
+                            my-2
+                        "
+                    >
                         {subreddits.slice(0, 10).map((subreddit) => (
                             <li key={subreddit.data.id}>
                                 <Link 
@@ -62,10 +69,36 @@ const Subreddits = (props) => {
                                     aria-label={`Go to the ${subreddit.data.display_name} subreddit`}
                                     onClick={() => dispatch(loadRedditPosts({
                                         subreddit: subreddit.data.display_name
-                                    }))}>
-                                    <div>
-                                        {/* <p>PH subreddit icon</p> */}
-                                        <h4>{subreddit.data.display_name_prefixed}</h4>
+                                    }))}
+                                    className="
+                                        text-white
+                                        text-decoration-none
+                                    "
+                                >
+                                    <div
+                                        className="
+                                            d-flex 
+                                            align-items-center 
+                                            mb-2
+                                        "
+                                    >
+                                        {subreddit.data.icon_img ?
+                                            <img 
+                                                className={styles.sr_icon_32}
+                                                src={subreddit.data.icon_img}
+                                            />
+                                        :
+                                            <div
+                                                className={styles.sr_default_icon_32}
+                                            >
+                                                <h4>r/</h4>
+                                            </div>
+                                        }
+                                        <div 
+                                            className={styles.sr_title}
+                                        >
+                                            {subreddit.data.display_name_prefixed}
+                                        </div>
                                     </div>
                                 </Link>
                             </li>
@@ -77,6 +110,9 @@ const Subreddits = (props) => {
                 <Link 
                     to={ROUTES.subredditsRoute()}
                     aria-label="See more subreddits"
+                    className="
+                        text-white
+                    "
                 >
                     <p>View more subreddits</p>
                 </Link>

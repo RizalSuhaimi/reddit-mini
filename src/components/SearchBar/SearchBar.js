@@ -31,29 +31,37 @@ const SearchBar = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="search" >
-                        <input 
-                            type="text"
-                            id="search"
-                            placeholder="Search Reddit"
-                            onChange={(e) => setSearchTerm(e.currentTarget.value)}
-                        />
-                    </label>
+        <>
+            <form onSubmit={handleSubmit} className="row justify-content-end">
+                <div className="w-75 input-group">
+                    <input 
+                        type="text"
+                        id="search"
+                        className="form-control w-50 border-white"
+                        placeholder="Search Reddit"
+                        onChange={(e) => setSearchTerm(e.currentTarget.value)}
+                    />
+
                     <select
                         onChange={(e) => setSearchConstraint(e.currentTarget.value)}
                         defaultValue="posts"
+                        id="search-constraint"
+                        className="form-select w-25 border-white"
                     >
                         <option value="posts">Posts</option>
                         <option value="subreddits">Subreddits</option>
                     </select>
+                    
+                    <button 
+                        type="submit" 
+                        className="btn btn-primary"
+                    >
+                        Search
+                    </button>
                 </div>
-                <button type="submit" >Search</button>
             </form>
             
-        </div>
+        </>
     )
 }
 
