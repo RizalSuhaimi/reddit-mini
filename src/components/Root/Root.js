@@ -29,6 +29,9 @@ const Root = () => {
             className="
                 bg-dark
                 text-white
+                container-fluid
+                m-0
+                p-0
             " 
             data-bs-theme="dark"
         >
@@ -71,6 +74,8 @@ const Root = () => {
                         col-lg-2 
                         justify-content-center
                         border-end
+                        position-fixed
+                        h-100
                     "
                 >
                     <div className="mt-3">
@@ -109,7 +114,9 @@ const Root = () => {
                     </div>
                 </div>
 
-                <div className="col-lg-10 border-start">
+                <div className="col-lg-2"></div>
+
+                <div className="col-lg-10 bg-primary">
                     <Outlet />
                 </div>
             </div>
