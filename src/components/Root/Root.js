@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
     loadSubreddits,
@@ -13,6 +13,7 @@ import Subreddits from "../Subreddits/Subreddits";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const Root = () => {
+    const location = useLocation();
     const dispatch = useDispatch();
     const subreddits = useSelector(selectSubreddits)
     const isLoadingSubreddits = useSelector(isLoading);
@@ -24,10 +25,16 @@ const Root = () => {
         };
     }, [subreddits, dispatch]);
 
+    const handleClickHome = (event) => {
+        if (location.pathname === "/") {
+            event.preventDefault();
+        }
+    }
+
     return (
         <div 
             className="
-                bg-dark
+                bg-dark-subtle
                 text-white
                 container-fluid
                 m-0
@@ -67,6 +74,7 @@ const Root = () => {
                 w-100
                 m-0
                 border-top
+                
                 "
             >
                 <div 
@@ -81,6 +89,7 @@ const Root = () => {
                     <div className="mt-3">
                         <Link
                             to="/"
+                            onClick={handleClickHome}
                             aria-label="Go Home"
                             className="
                                 text-white
@@ -114,9 +123,16 @@ const Root = () => {
                     </div>
                 </div>
 
-                <div className="col-lg-2"></div>
+                <div className="col-lg-2"></div> {/*This is needed to make sure nothing goes under the sidebar*/}
 
-                <div className="col-lg-10 bg-primary">
+                <div 
+                    className="
+                        col-lg-10 
+                        col-md-12
+                        px-5
+                        pt-3
+                    "
+                >
                     <Outlet />
                 </div>
             </div>

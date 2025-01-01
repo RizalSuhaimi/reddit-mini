@@ -56,15 +56,15 @@ const HomePage = () => {
     return (
         <>
             <h2>Trending in Reddit</h2>
-            {initialLoading && <div>Content is loading</div>}
+            {initialLoading && <p>Content is loading</p>}
 
-            {redditPostsErrorMessage && <div>{redditPostsErrorMessage}</div>}
+            {redditPostsErrorMessage && <p>{redditPostsErrorMessage}</p>}
 
             {redditPosts.length > 0 && <RedditPosts redditPosts={redditPosts}/>}
 
-            {scrollLoading && <div>Loading more posts...</div>}
+            {scrollLoading && <p>Loading more posts...</p>}
 
-            {stopInfiniteScroll && <div>No more posts...</div>}
+            {stopInfiniteScroll && <p>No more posts...</p>}
         </>
     )
 }
