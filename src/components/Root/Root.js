@@ -108,7 +108,7 @@ const Root = () => {
                             py-2 px-3
                         "
                     >
-                        <h4 className="">Communities</h4>
+                        <h5 className="">Communities</h5>
 
                         {isLoadingSubreddits && <div>Loading subreddits</div>}
 

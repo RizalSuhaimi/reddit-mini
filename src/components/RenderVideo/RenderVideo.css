@@ -1,13 +1,4 @@
-.redditPost {
-    
-    transition: background-color 0.3s ease;
-}
-
-.redditPost:hover {
-    background-color: rgb(45, 45, 45);
-}
-
-.redditPostImg {
+.redditPostVid {
     display: block;
     background-color: black;
     width: 100%;
