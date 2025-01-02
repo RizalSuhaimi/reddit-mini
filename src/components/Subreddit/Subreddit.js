@@ -23,12 +23,16 @@ const Subreddit = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const redditPosts = useSelector(selectRedditPosts);
-    const srIconImg = useSelector(selectSrIcon);
+    const srIconImg = localStorage.getItem("sr_icon")
     const after = useSelector(selectAfter);
     const stopInfiniteScroll = useSelector(gotAllPosts);
     const isLoadingRedditPosts = useSelector(isLoading);
     const redditPostsErrorMessage = useSelector(selectErrorMessage);
     const { subreddit } = useParams();
+
+    useEffect(() => {
+        dispatch(loadRedditPosts({ subreddit }))
+    }, [dispatch])
 
 
     const handleScroll = handleInfiniteScroll(

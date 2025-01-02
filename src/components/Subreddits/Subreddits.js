@@ -67,10 +67,7 @@ const Subreddits = (props) => {
                                 <Link 
                                     to={ROUTES.subredditRoute(subreddit.data.display_name)}
                                     aria-label={`Go to the ${subreddit.data.display_name} subreddit`}
-                                    onClick={() => dispatch(loadRedditPosts({
-                                        subreddit: subreddit.data.display_name,
-                                        srIconImg: subreddit.data.icon_img
-                                    }))}
+                                    onClick={() => localStorage.setItem("sr_icon", subreddit.data.icon_img)}
                                     className="
                                     text-white
                                     text-decoration-none
@@ -135,9 +132,7 @@ const Subreddits = (props) => {
                                 <Link 
                                     to={ROUTES.subredditRoute(subreddit.data.display_name)}
                                     aria-label={`Go to the ${subreddit.data.display_name} subreddit`}
-                                    onClick={() => dispatch(loadRedditPosts({
-                                        subreddit: subreddit.data.display_name
-                                    }))}
+                                    onClick={() => dispatch(loadRedditPosts(() => localStorage.setItem("sr_icon", subreddit.data.icon_img)))}
                                 >
                                     <div>
                                         {/* <p>PH subreddit icon</p> */}
@@ -179,23 +174,26 @@ const Subreddits = (props) => {
                                 <Link 
                                     to={ROUTES.subredditRoute(subreddit.data.display_name)}
                                     aria-label={`Go to the ${subreddit.data.display_name} subreddit`}
-                                    onClick={() => dispatch(loadRedditPosts({
-                                        subreddit: subreddit.data.display_name
-                                    }))}
+                                    onClick={() => dispatch(() => localStorage.setItem("sr_icon", subreddit.data.icon_img))}
                                     className="
                                     text-white
                                     text-decoration-none
                                     "
                                 >
-                                    <div>
+                                    <div
+                                    className="
+                                    p-2
+                                    my-1
+                                    rounded
+                                    sr-button
+                                    "
+                                    >
                                         <div
                                         className="
                                         d-flex 
                                         align-items-center
-                                        p-1 
+                                        py-1 
                                         mb-1
-                                        rounded
-                                        sr-button
                                         "
                                         >
                                             {subreddit.data.icon_img ?
@@ -224,6 +222,7 @@ const Subreddits = (props) => {
                                         <p className="m-0">Subcribers: {subreddit.data.subscribers}</p>
                                     </div>
                                 </Link>
+                                <div className="border-top"></div>
                             </li>
                         ))}
                     </ol>
