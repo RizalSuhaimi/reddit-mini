@@ -10,7 +10,10 @@ import {
 import SearchBar from "../SearchBar/SearchBar";
 import Subreddits from "../Subreddits/Subreddits";
 
-import "bootstrap/dist/css/bootstrap.min.css"
+import homeIcon from "../../resources/home.png";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Root.css";
 
 const Root = () => {
     const location = useLocation();
@@ -31,29 +34,32 @@ const Root = () => {
         }
     }
 
+    const initialLoading = isLoadingSubreddits && subreddits.length === 0;
+
     return (
         <div 
-            className="
-                bg-dark-subtle
-                text-white
-                container-fluid
-                m-0
-                p-0
-            " 
-            data-bs-theme="dark"
+        className="
+            bg-dark-subtle
+            text-white
+            container-fluid
+            m-0
+            p-0
+        " 
+        data-bs-theme="dark"
         >
             <div 
-                className="
-                    bg-dark 
-                    row 
-                    align-items-center 
-                    px-3 py-1 
-                    position-sticky 
-                    top-0 
-                    w-100 
-                    border-bottom 
-                    m-0
-                "
+            className="
+                bg-dark 
+                row 
+                align-items-center 
+                px-3 py-1 
+                position-sticky 
+                top-0 
+                w-100 
+                border-bottom 
+                m-0
+                headerBar
+            "
             >
                 <div className="d-lg-none d-block text-white">
                     ph tango
@@ -74,43 +80,54 @@ const Root = () => {
                 w-100
                 m-0
                 border-top
-                
                 "
             >
                 <div 
-                    className="
-                        col-lg-2 
-                        justify-content-center
-                        border-end
-                        position-fixed
-                        h-100
-                    "
+                className="
+                    side-panel
+                    justify-content-center
+                    border-end
+                    position-fixed
+                    h-100
+                    
+                "
                 >
-                    <div className="mt-3">
+                    <div className="my-2">
                         <Link
-                            to="/"
-                            onClick={handleClickHome}
-                            aria-label="Go Home"
-                            className="
-                                text-white
-                                text-decoration-none
-                                fs-5
-                            "
+                        to="/"
+                        onClick={handleClickHome}
+                        aria-label="Go Home"
+                        className="
+                            text-white
+                            text-decoration-none
+                            justify-content-center
+                            d-flex
+                            align-items-center
+                            home-button
+                            rounded
+                            p-1
+                        "
                         >
-                            <p className="text-center">Home</p>
+                            <img className="home-icon" src={homeIcon}/>
+                            <p className="text-center fs-5 m-0">Home</p>
                         </Link>
                     </div>
                     <div
-                        className="
-                            border-top 
-                            w-100 
-                            justify-content-center
-                            py-2 px-3
-                        "
+                    className="
+                        border-top 
+                        w-100 
+                        justify-content-center
+                        py-2 ps-3
+                    "
                     >
                         <h5 className="">Communities</h5>
 
-                        {isLoadingSubreddits && <div>Loading subreddits</div>}
+                        {initialLoading && 
+                            <div className="d-flex  justify-content-center">
+                                <div className="spinner-border" role="status"></div>
+                                <p className="px-3 py-1">Loading subreddits</p>
+                            </div>
+                        }
 
                         {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}
                         
@@ -123,14 +140,14 @@ const Root = () => {
                     </div>
                 </div>
 
-                <div className="col-lg-2"></div> {/*This is needed to make sure nothing goes under the sidebar*/}
+                <div className="side-panel"></div> {/*This is needed to make sure nothing goes under the sidebar. It also breaks the page when the width of the viewport is to narrow for both the sidebar and the hero section*/}
 
                 <div 
                     className="
-                        col-lg-10 
-                        col-md-12
-                        px-5
+                        hero
+                        px-3
                         pt-3
+                        m-auto
                     "
                 >
                     <Outlet />

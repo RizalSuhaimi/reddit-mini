@@ -55,7 +55,12 @@ const SearchResults = () => {
 
     return (
         <div>
-            {initialLoading && <div>Content is loading</div>}  
+            {initialLoading &&
+                <div className="d-flex  justify-content-center">
+                    <div className="spinner-border" role="status"></div>
+                    <p className="px-3 py-1">Loading search results</p>
+                </div>
+            } 
 
             {searchErrorMessage && <div>{searchErrorMessage}</div>}
 
@@ -72,7 +77,12 @@ const SearchResults = () => {
 
             {noResultsFound && <h3>Cannot find anything for {searchTerm}</h3>}
 
-            {scrollLoading && <h3>Loading more results...</h3>}
+            {scrollLoading && 
+                <div className="d-flex  justify-content-center">
+                    <div className="spinner-border" role="status"></div>
+                    <p className="px-3 py-1">Loading more results</p>
+                </div>
+            }
 
             {stopInfiniteScroll && <div>No more posts...</div>}
         </div>

@@ -1,0 +1,24 @@
+.headerBar {
+    z-index: 100;
+}
+
+.side-panel {
+    width: 280px;
+}
+
+.home-button:hover {
+    background-color: rgb(50, 50, 50);
+}
+
+.home-button:active {
+    background-color: #0d6efd;
+}
+
+.home-icon {
+    height: 24px;
+    width: auto;
+}
+
+.hero {
+    width: 1200px;
+}

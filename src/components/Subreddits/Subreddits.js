@@ -15,8 +15,8 @@ import {
 } from "./SubredditsSlice";
 import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 
-import "bootstrap/dist/css/bootstrap.min.css"
-import styles from "./Subreddits.module.css"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Subreddits.css";
 
 const Subreddits = (props) => {
     const location = useLocation();
@@ -68,34 +68,38 @@ const Subreddits = (props) => {
                                     to={ROUTES.subredditRoute(subreddit.data.display_name)}
                                     aria-label={`Go to the ${subreddit.data.display_name} subreddit`}
                                     onClick={() => dispatch(loadRedditPosts({
-                                        subreddit: subreddit.data.display_name
+                                        subreddit: subreddit.data.display_name,
+                                        srIconImg: subreddit.data.icon_img
                                     }))}
                                     className="
-                                        text-white
-                                        text-decoration-none
+                                    text-white
+                                    text-decoration-none
                                     "
                                 >
                                     <div
                                         className="
                                             d-flex 
-                                            align-items-center 
-                                            mb-2
+                                            align-items-center
+                                            p-1 
+                                            mb-1
+                                            rounded
+                                            sr-button
                                         "
                                     >
                                         {subreddit.data.icon_img ?
                                             <img 
-                                                className={styles.sr_icon_32}
+                                                className="sr_icon_32"
                                                 src={subreddit.data.icon_img}
                                             />
                                         :
                                             <div
-                                                className={styles.sr_default_icon_32}
+                                                className="sr_default_icon_32"
                                             >
                                                 <h4>r/</h4>
                                             </div>
                                         }
                                         <div 
-                                            className={styles.sr_title}
+                                            className="sr_title"
                                         >
                                             {subreddit.data.display_name_prefixed}
                                         </div>
@@ -111,10 +115,11 @@ const Subreddits = (props) => {
                     to={ROUTES.subredditsRoute()}
                     aria-label="See more subreddits"
                     className="
+                        text-decoration-none
                         text-white
                     "
                 >
-                    <p>View more subreddits</p>
+                    <p className="more-sr">View more subreddits</p>
                 </Link>
             </>
         )
@@ -153,12 +158,22 @@ const Subreddits = (props) => {
         return (
             <div>
                 <h2>Communities</h2>
-                {initialLoading && <div>Content is loading</div>}
+                {initialLoading &&
+                    <div className="d-flex  justify-content-center">
+                        <div className="spinner-border" role="status"></div>
+                        <p className="px-3 py-1">Loading communities</p>
+                    </div>
+                } 
 
                 {subredditsErrorMessage && <div>{subredditsErrorMessage}</div>}
 
                 {subreddits.length > 0 ? 
-                    <ol>
+                    <ol
+                    className="
+                        list-unstyled
+                        list-group
+                    "
+                    >
                         {subreddits.map((subreddit) => (
                             <li key={subreddit.data.id}>
                                 <Link 
@@ -167,12 +182,46 @@ const Subreddits = (props) => {
                                     onClick={() => dispatch(loadRedditPosts({
                                         subreddit: subreddit.data.display_name
                                     }))}
+                                    className="
+                                    text-white
+                                    text-decoration-none
+                                    "
                                 >
                                     <div>
-                                        {/* <p>PH subreddit icon</p> */}
-                                        <h3>{subreddit.data.display_name_prefixed}</h3>
-                                        <p>{subreddit.data.title}</p>
-                                        {/* <p>Subcribers: {subreddit.data.subscribers}</p> */}
+                                        <div
+                                        className="
+                                        d-flex 
+                                        align-items-center
+                                        p-1 
+                                        mb-1
+                                        rounded
+                                        sr-button
+                                        "
+                                        >
+                                            {subreddit.data.icon_img ?
+                                                <img 
+                                                className="sr_icon_40"
+                                                src={subreddit.data.icon_img}
+                                                />
+                                            :
+                                                <div
+                                                className="sr_default_icon_40"
+                                                >
+                                                    <h4>r/</h4>
+                                                </div>
+                                            }
+
+                                            <div 
+                                            className="sr_title"
+                                            >
+                                                <h3>{subreddit.data.display_name_prefixed}</h3>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <p className="m-0 fs-5">{subreddit.data.title}</p>
+
+                                        <p className="m-0">Subcribers: {subreddit.data.subscribers}</p>
                                     </div>
                                 </Link>
                             </li>
@@ -182,9 +231,14 @@ const Subreddits = (props) => {
                     <p>Subreddits unavailable</p>
                 }
 
-                {scrollLoading && <div>Loading more posts...</div>}
+                {scrollLoading && 
+                    <div className="d-flex  justify-content-center">
+                        <div className="spinner-border" role="status"></div>
+                        <p className="px-3 py-1">Loading more communities</p>
+                    </div>
+                }
 
-                {stopInfiniteScroll && <div>No more posts...</div>}
+                {stopInfiniteScroll && <div>No more communities...</div>}
             </div>
         )
     }

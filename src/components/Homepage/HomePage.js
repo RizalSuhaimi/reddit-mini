@@ -56,13 +56,23 @@ const HomePage = () => {
     return (
         <>
             <h2>Trending in Reddit</h2>
-            {initialLoading && <p>Content is loading</p>}
+            {initialLoading &&
+                <div className="d-flex  justify-content-center">
+                    <div className="spinner-border" role="status"></div>
+                    <p className="px-3 py-1">Loading Reddit posts</p>
+                </div>
+            }
 
             {redditPostsErrorMessage && <p>{redditPostsErrorMessage}</p>}
 
             {redditPosts.length > 0 && <RedditPosts redditPosts={redditPosts}/>}
 
-            {scrollLoading && <p>Loading more posts...</p>}
+            {scrollLoading && 
+                <div className="d-flex  justify-content-center">
+                    <div className="spinner-border" role="status"></div>
+                    <p className="px-3 py-1">Loading more posts</p>
+                </div>
+            }
 
             {stopInfiniteScroll && <p>No more posts...</p>}
         </>
