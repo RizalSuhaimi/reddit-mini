@@ -6,7 +6,6 @@ import {
     loadFullPost
 } from "../FullPost/FullPostSlice";
 import RenderVideo from "../RenderVideo/RenderVideo";
-import ReactMarkdown from "react-markdown";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./RedditPosts.css";

@@ -19,20 +19,24 @@ import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SearchResults = () => {
-    
-    const searchParams = useSearchParams();
+    const [ searchParams ] = useSearchParams();
     const dispatch = useDispatch();
     const location = useLocation();
     const searchResults = useSelector(selectSearchResults);
     const after = useSelector(selectAfter);
     const stopInfiniteScroll = useSelector(gotAllResults);
-    const searchTerm = useSelector(selectSearchTerm)
-    const searchConstraint = useSelector(selectSearchConstraint)
+    let searchTerm = searchParams.get("q");
+    let searchConstraint = searchParams.get("type");
     const isLoadingSearchResults = useSelector(isLoading);
     const searchErrorMessage = useSelector(selectErrorMessage);
 
     console.log(`SearchResults is rendered.`)
-    console.log(`searchParams value is ${searchParams}`)
+    // console.log(`in SearchResults.js, searchParams size: ${searchParams.size}`)
+
+    useEffect(() => {
+
+        dispatch(runSearch({ searchTerm, searchConstraint}))
+    }, [dispatch])
 
     const handleScroll = handleInfiniteScroll(
         dispatch, 

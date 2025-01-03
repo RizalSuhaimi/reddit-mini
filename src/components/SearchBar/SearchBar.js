@@ -29,6 +29,8 @@ const SearchBar = () => {
 
     const onSearchHandler = (event) => {
         event.preventDefault();
+        console.log(searchParams)
+        console.log(`searchParams size: ${searchParams.size}`)
 
         const query = {
             q: searchInputRef.current.value
@@ -41,13 +43,29 @@ const SearchBar = () => {
         const searchConstraintString = createSearchParams(searchConstraint)
 
         if (searchInputRef.current.value) {
-            
-            dispatch(resetState("Search Button"));
+            if (searchParams.size !== 0) {
+                let urlTerm = searchParams.get("q");
+                let urlConstraint = searchParams.get("type");
+                console.log(searchConstraintRef.current.value)
 
-            navigate({
-                pathname: ROUTES.searchRoute(),
-                search: `?${queryString}&${searchConstraintString}`
-            });
+                if (searchInputRef.current.value !== urlTerm || searchConstraintRef.current.value !== urlConstraint) {
+                    dispatch(resetState("Search Button"));
+                    navigate({
+                        pathname: ROUTES.searchRoute(),
+                        search: `?${queryString}&${searchConstraintString}`
+                    });
+                }
+
+            } else {
+                dispatch(resetState("Search Button"));
+                navigate({
+                    pathname: ROUTES.searchRoute(),
+                    search: `?${queryString}&${searchConstraintString}`
+                });
+            }
+            
+
+            
         } else {
             alert("Search bar cannot be empty")
         }

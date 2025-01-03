@@ -23,12 +23,6 @@ const HomePage = () => {
     const stopInfiniteScroll = useSelector(gotAllPosts); 
     const isLoadingRedditPosts = useSelector(isLoading);
     const redditPostsErrorMessage = useSelector(selectErrorMessage);
-    const [ searchParams ] = useSearchParams();
-    if (searchParams) {
-        console.log(searchParams)
-    } else {
-        console.log(`searchParams have no value: ${searchParams}`)
-    }
 
     useEffect(() => {
         dispatch(loadRedditPosts({}));
