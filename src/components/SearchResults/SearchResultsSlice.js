@@ -60,7 +60,7 @@ export const searchResultsSlice = createSlice({
     initialState,
     reducers: {
         resetState: (state, action) => {
-            console.log(`resetState for SearchResults was called by ${action.payload}`)
+            console.log(`resetState for searchResults was called by ${action.payload}`)
             return initialState;
         }
     },

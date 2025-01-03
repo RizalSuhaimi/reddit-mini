@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { 
     loadRedditPosts,
@@ -23,6 +23,12 @@ const HomePage = () => {
     const stopInfiniteScroll = useSelector(gotAllPosts); 
     const isLoadingRedditPosts = useSelector(isLoading);
     const redditPostsErrorMessage = useSelector(selectErrorMessage);
+    const [ searchParams ] = useSearchParams();
+    if (searchParams) {
+        console.log(searchParams)
+    } else {
+        console.log(`searchParams have no value: ${searchParams}`)
+    }
 
     useEffect(() => {
         dispatch(loadRedditPosts({}));
@@ -45,7 +51,7 @@ const HomePage = () => {
 
     useEffect(() => {
         return () => {
-            dispatch(resetState());
+            dispatch(resetState("HomePage"));
         };
     }, [location, dispatch])
 

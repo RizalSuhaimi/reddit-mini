@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import {
     runSearch,
     selectSearchResults,
@@ -19,6 +19,8 @@ import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SearchResults = () => {
+    
+    const searchParams = useSearchParams();
     const dispatch = useDispatch();
     const location = useLocation();
     const searchResults = useSelector(selectSearchResults);
@@ -28,6 +30,9 @@ const SearchResults = () => {
     const searchConstraint = useSelector(selectSearchConstraint)
     const isLoadingSearchResults = useSelector(isLoading);
     const searchErrorMessage = useSelector(selectErrorMessage);
+
+    console.log(`SearchResults is rendered.`)
+    console.log(`searchParams value is ${searchParams}`)
 
     const handleScroll = handleInfiniteScroll(
         dispatch, 
@@ -45,7 +50,7 @@ const SearchResults = () => {
 
     useEffect(() => {
         return () => {
-            dispatch(resetState("SearchResults useEffect()"));
+            dispatch(resetState("SearchResults unmounting"));
         };
     }, [location, dispatch])
 

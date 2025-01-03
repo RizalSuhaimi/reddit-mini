@@ -43,7 +43,8 @@ export const redditPostsSlice = createSlice({
     name: "redditPosts",
     initialState,
     reducers: {
-        resetState: (state) => { // This is needed for when users go from the HomePage to a Subreddit page and vice versa
+        resetState: (state, action) => { // This is needed for when users go from the HomePage to a Subreddit page and vice versa
+            console.log(`resetState for redditPosts was called by ${action.payload}`)
             return initialState;
         },
         setSrIconImg: (state, action) => {

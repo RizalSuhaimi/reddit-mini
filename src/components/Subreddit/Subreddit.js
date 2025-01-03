@@ -51,7 +51,7 @@ const Subreddit = () => {
 
     useEffect(() => {
         return () => {
-            dispatch(resetState());
+            dispatch(resetState(`r/${subreddit} subreddit`));
         };
     }, [location, dispatch])
 
