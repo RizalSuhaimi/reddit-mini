@@ -25,17 +25,23 @@ export const loadFullPost = createAsyncThunk(
     }
 );
 
+const initialState = {
+    fullPost: {},
+    comments: [],
+    isLoading: false,
+    hasError: false,
+    errorMessage: "", // Store error message for more feedback
+}
+
 // No need to implement infinite scroll for this because the fetch call is not limited to getting only 25 comments at a time
 export const fullPostSlice = createSlice({
     name: "fullPost",
-    initialState: {
-        fullPost: {},
-        comments: [],
-        isLoading: false,
-        hasError: false,
-        errorMessage: "", // Store error message for more feedback
+    initialState,
+    reducers: {
+        resetState: (state) => {
+            return initialState;
+        }
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(loadFullPost.pending, (state) => {
@@ -48,6 +54,7 @@ export const fullPostSlice = createSlice({
                 state.comments = action.payload[1].data.children;
                 state.isLoading = false;
                 state.hasError = false;
+                state.errorMessage = "";
             })
             .addCase(loadFullPost.rejected, (state, action) => {
                 state.isLoading = false;
@@ -58,6 +65,8 @@ export const fullPostSlice = createSlice({
             })
     }
 })
+
+export const { resetState } = fullPostSlice.actions;
 
 export const selectFullPost = (state) => state.fullPost.fullPost;
 export const selectComments = (state) => state.fullPost.comments;

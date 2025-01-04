@@ -31,8 +31,11 @@ const Subreddit = () => {
     const { subreddit } = useParams();
 
     useEffect(() => {
-        dispatch(loadRedditPosts({ subreddit }))
-    }, [dispatch])
+        dispatch(loadRedditPosts({ subreddit }));
+        return () => {
+            dispatch(resetState(`r/${subreddit} subreddit`));
+        };
+    }, [dispatch, location])
 
 
     const handleScroll = handleInfiniteScroll(
@@ -48,12 +51,6 @@ const Subreddit = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [after, isLoadingRedditPosts, dispatch, stopInfiniteScroll])
-
-    useEffect(() => {
-        return () => {
-            dispatch(resetState(`r/${subreddit} subreddit`));
-        };
-    }, [location, dispatch])
 
     // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
     const initialLoading = isLoadingRedditPosts && redditPosts.length === 0 && !stopInfiniteScroll;

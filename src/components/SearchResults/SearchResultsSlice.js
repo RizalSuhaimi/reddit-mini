@@ -67,7 +67,6 @@ export const searchResultsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(runSearch.pending, (state) => {
-                console.log("runSearch is pending")
                 state.isLoading = true;
                 state.hasError = false;
                 state.errorMessage = "";

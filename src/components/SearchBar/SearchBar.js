@@ -29,8 +29,8 @@ const SearchBar = () => {
 
     const onSearchHandler = (event) => {
         event.preventDefault();
-        console.log(searchParams)
-        console.log(`searchParams size: ${searchParams.size}`)
+        // console.log(searchParams)
+        // console.log(`searchParams size: ${searchParams.size}`)
 
         const query = {
             q: searchInputRef.current.value
@@ -46,7 +46,7 @@ const SearchBar = () => {
             if (searchParams.size !== 0) {
                 let urlTerm = searchParams.get("q");
                 let urlConstraint = searchParams.get("type");
-                console.log(searchConstraintRef.current.value)
+                // console.log(searchConstraintRef.current.value)
 
                 if (searchInputRef.current.value !== urlTerm || searchConstraintRef.current.value !== urlConstraint) {
                     dispatch(resetState("Search Button"));

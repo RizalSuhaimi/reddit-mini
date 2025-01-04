@@ -6,6 +6,21 @@
     width: 280px;
 }
 
+@media only screen and (max-width: 1500px){
+    .side-panel {
+        display: none;
+    }
+
+    .searchBar {
+        display: none;
+    }
+
+    .searchIcon {
+        height: 40px;
+        width: auto;
+    }
+}
+
 .home-button:hover {
     background-color: rgb(50, 50, 50);
 }

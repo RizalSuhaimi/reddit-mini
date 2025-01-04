@@ -30,13 +30,13 @@ const SearchResults = () => {
     const isLoadingSearchResults = useSelector(isLoading);
     const searchErrorMessage = useSelector(selectErrorMessage);
 
-    console.log(`SearchResults is rendered.`)
-    // console.log(`in SearchResults.js, searchParams size: ${searchParams.size}`)
-
     useEffect(() => {
-
         dispatch(runSearch({ searchTerm, searchConstraint}))
-    }, [dispatch])
+        
+        return () => {
+            dispatch(resetState("SearchResults unmounting"));
+        }
+    }, [dispatch, location])
 
     const handleScroll = handleInfiniteScroll(
         dispatch, 
@@ -51,12 +51,6 @@ const SearchResults = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [after, isLoadingSearchResults, dispatch, stopInfiniteScroll])
-
-    useEffect(() => {
-        return () => {
-            dispatch(resetState("SearchResults unmounting"));
-        };
-    }, [location, dispatch])
 
     const initialLoading = isLoadingSearchResults && searchResults.length === 0;
     const scrollLoading = isLoadingSearchResults && searchResults.length > 0;

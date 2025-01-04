@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Route,
   BrowserRouter,
@@ -13,6 +13,18 @@ import SearchResults from '../components/SearchResults/SearchResults';
 // import styles from "../../css/bootstrap.css";
 
 function App() {
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      localStorage.clear();
+    }
+
+    window.addEventListener("beforeunload", handleBeforeUnload)
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload)
+    }
+  })
+
   return (
     <BrowserRouter>
       <Routes>

@@ -11,6 +11,8 @@ import SearchBar from "../SearchBar/SearchBar";
 import Subreddits from "../Subreddits/Subreddits";
 
 import homeIcon from "../../resources/home.png";
+import searchIcon from "../../resources/search.png";
+import hamburgerIcon from "../../resources/menu.png";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Root.css";
@@ -65,11 +67,15 @@ const Root = () => {
                     ph tango
                 </div>
 
-                <div className="col">
-                    <h1 className="text-primary">REDDITmini</h1>
+                <div className="col logo m-0">
+                    <h1 className="bg-primary">REDDIT<span className="text-info">mini</span></h1>
                 </div>
 
-                <div className="col text-end">
+                <div className="col searchIconContainer bg-success p-0 m-0">
+                    <img className="searchIcon m-0" src={searchIcon} />
+                </div>
+
+                <div className="col text-end searchBar">
                     <SearchBar />
                 </div>
             </div>
