@@ -38,6 +38,14 @@ const Root = () => {
 
     const initialLoading = isLoadingSubreddits && subreddits.length === 0;
 
+    // Need to useEffect to handle unmounting the event listener
+    // const sidePanelToggle = document.getElementById("side-panel-toggle");
+    // const sidePanel = document.getElementById("side-panel");
+
+    // sidePanelToggle.addEventListener("click", event => {
+    //   sidePanel.classList.toggle("show");
+    // });
+
     return (
         <div 
         className="
@@ -46,15 +54,16 @@ const Root = () => {
             container-fluid
             m-0
             p-0
+
         " 
         data-bs-theme="dark"
         >
             <div 
             className="
-                bg-dark 
+                bg-dark
                 row 
                 align-items-center 
-                px-3 py-1 
+                px-3 py-2
                 position-sticky 
                 top-0 
                 w-100 
@@ -63,16 +72,44 @@ const Root = () => {
                 headerBar
             "
             >
-                <div className="d-lg-none d-block text-white">
-                    ph tango
+                <div
+                
+                className="
+                col 
+                searchIconContainer 
+                bg-
+                p-0 m-0 
+                "
+                >
+                    <img 
+                    id="side-panel-toggle" 
+                    className="headerIcon m-0 rounded img-fluid" 
+                    src={hamburgerIcon} 
+                    />
                 </div>
 
-                <div className="col logo m-0">
-                    <h1 className="bg-primary">REDDIT<span className="text-info">mini</span></h1>
+                <div 
+                className="
+                col 
+                logoContainer 
+                m-0 py-0 
+                bg-
+                "
+                >
+                    <h1 className=" m-0 logo">REDDIT<span className="text-info">mini</span></h1>
                 </div>
 
-                <div className="col searchIconContainer bg-success p-0 m-0">
-                    <img className="searchIcon m-0" src={searchIcon} />
+                <div 
+                className="
+                col 
+                searchIconContainer 
+                bg-
+                p-0 m-0 
+                justify-content-end
+                "
+                >
+                    <img className="headerIcon m-0 rounded img-fluid" src={searchIcon} />
+                    
                 </div>
 
                 <div className="col text-end searchBar">
@@ -88,13 +125,15 @@ const Root = () => {
                 border-top
                 "
             >
-                <div 
+                <nav 
+                id="side-panel"
                 className="
                     side-panel
                     justify-content-center
                     border-end
                     position-fixed
                     h-100
+                    bg-dark-subtle
                     
                 "
                 >
@@ -144,9 +183,9 @@ const Root = () => {
                         </div>
                         
                     </div>
-                </div>
+                </nav>
 
-                <div className="side-panel"></div> {/*This is needed to make sure nothing goes under the sidebar. It also breaks the page when the width of the viewport is to narrow for both the sidebar and the hero section*/}
+                <div className="side-panel back"></div> {/*This is needed to make sure nothing goes under the sidebar. It also breaks the page when the width of the viewport is to narrow for both the sidebar and the hero section*/}
 
                 <div 
                     className="
