@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { 
     useNavigate, 
@@ -20,17 +20,10 @@ const SearchBar = () => {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ searchParams ] = useSearchParams();
-
-    // const [searchTerm, setSearchTerm] = useState("");
-    // const [searchConstraint, setSearchConstraint] = useState("posts")
-
-    
+    const [ searchParams ] = useSearchParams();    
 
     const onSearchHandler = (event) => {
         event.preventDefault();
-        // console.log(searchParams)
-        // console.log(`searchParams size: ${searchParams.size}`)
 
         const query = {
             q: searchInputRef.current.value
@@ -46,7 +39,6 @@ const SearchBar = () => {
             if (searchParams.size !== 0) {
                 let urlTerm = searchParams.get("q");
                 let urlConstraint = searchParams.get("type");
-                // console.log(searchConstraintRef.current.value)
 
                 if (searchInputRef.current.value !== urlTerm || searchConstraintRef.current.value !== urlConstraint) {
                     dispatch(resetState("Search Button"));
@@ -64,8 +56,6 @@ const SearchBar = () => {
                 });
             }
             
-
-            
         } else {
             alert("Search bar cannot be empty")
         }
@@ -73,8 +63,12 @@ const SearchBar = () => {
 
     return (
         <>
-            <form onSubmit={onSearchHandler} className="row justify-content-end">
-                <div className="w-75 input-group">
+            <form 
+            id="searchBar" 
+            onSubmit={onSearchHandler} 
+            className="row justify-content-end"
+            >
+                <div className="w-100 input-group">
                     <input 
                         type="text"
                         id="search"

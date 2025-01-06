@@ -114,7 +114,7 @@ const FullPost = () => {
                         className="d-flex align-items-center"
                         >   
                             <img src={arrow} className="postIcons"/>
-                            <p className="my-0 mx-1">Score: {fullPost.score}</p>
+                            <p className="my-0 mx-1">{fullPost.score}</p>
                             <img src={arrow} className="postIcons-down"/>
 
                             <div className="fs-1 mx-3 text-secondary">l</div>

@@ -14,6 +14,7 @@ import RedditPosts from "../RedditPosts/RedditPosts";
 import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./HomePage.css"
 
 const HomePage = () => {
     const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const HomePage = () => {
     return (
         <>
             <h2>Trending in Reddit</h2>
+            <div className="pagePostsDivider"></div>
             {initialLoading &&
                 <div className="d-flex  justify-content-center">
                     <div className="spinner-border" role="status"></div>

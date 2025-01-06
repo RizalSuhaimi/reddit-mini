@@ -9,6 +9,7 @@ import {
 } from "../Subreddits/SubredditsSlice";
 import SearchBar from "../SearchBar/SearchBar";
 import Subreddits from "../Subreddits/Subreddits";
+import MobileSearchMenu from "../MobileSearchMenu/MobileSearchMenu";
 
 import homeIcon from "../../resources/home.png";
 import searchIcon from "../../resources/search.png";
@@ -38,13 +39,78 @@ const Root = () => {
 
     const initialLoading = isLoadingSubreddits && subreddits.length === 0;
 
-    // Need to useEffect to handle unmounting the event listener
-    // const sidePanelToggle = document.getElementById("side-panel-toggle");
-    // const sidePanel = document.getElementById("side-panel");
 
-    // sidePanelToggle.addEventListener("click", event => {
-    //   sidePanel.classList.toggle("show");
-    // });
+    let sidePanel 
+    let hamburger
+    useEffect(() => {
+        sidePanel = document.getElementById("side-panel");
+        hamburger = document.getElementById("side-panel-toggle");
+    })
+
+    const handleHamburgerOnClick = () => {
+        sidePanel.classList.toggle("show");
+        hamburger.classList.toggle("isActive");
+    };
+
+    // Hides the sidebar when user clicks anywhere outside the side panel
+    const handleHideSidePanel = (event) => {
+        if (sidePanel.classList.contains("show")) {
+            if (!event.target.closest("#side-panel") && !event.target.closest("#side-panel-toggle")) {
+                sidePanel.classList.remove("show");
+                hamburger.classList.remove("isActive");
+            };
+        };
+    };
+
+    useEffect(() => {
+        window.addEventListener("click", handleHideSidePanel);
+        return () => window.removeEventListener("click", handleHideSidePanel);
+    }, [location])
+
+    let searchMenuToggle
+    let searchMenuPage
+    useEffect(() => {
+        searchMenuToggle = document.getElementById("searchMenu-toggle")
+        searchMenuPage = document.getElementById("searchMenuPage")
+    });
+
+    const handleSearchMenuToggleOnClick = () => {
+        searchMenuToggle.classList.toggle("isActive");
+        searchMenuPage.classList.toggle("show")
+        document.body.style.overflow = "hidden";
+    };
+
+    const handleHideSearchMenuPage = (event) => {
+        if (searchMenuPage.classList.contains("show")) {
+            if (!event.target.closest("#searchMenuContainer") && !event.target.closest("#searchMenuToggle")) {
+                searchMenuPage.classList.remove("show");
+                searchMenuToggle.classList.remove("isActive");
+                document.body.style.overflow = "auto";
+            };
+        }
+    };
+
+    useEffect(() => {
+        searchMenuPage.addEventListener("click", handleHideSearchMenuPage);
+        return () => searchMenuPage.removeEventListener("click", handleHideSearchMenuPage);
+    }, [location])
+
+    // Hides side panel and mobile search menu after every reroute
+    useEffect(() => {
+        if (sidePanel.classList.contains("show")) {
+            sidePanel.classList.remove("show");
+        }
+        if (hamburger.classList.contains("isActive")) {
+            hamburger.classList.remove("isActive");
+        }
+        if (searchMenuPage.classList.contains("show")) {
+            searchMenuPage.classList.remove("show");
+        }
+        if (searchMenuToggle.classList.contains("isActive")) {
+            searchMenuToggle.classList.remove("isActive");
+        }
+        document.body.style.overflow = "auto"; // Need this for when users press back after they opened the search menu
+    }, [location]);
 
     return (
         <div 
@@ -76,7 +142,7 @@ const Root = () => {
                 
                 className="
                 col 
-                searchIconContainer 
+                headerIconContainer 
                 bg-
                 p-0 m-0 
                 "
@@ -85,10 +151,12 @@ const Root = () => {
                     id="side-panel-toggle" 
                     className="headerIcon m-0 rounded img-fluid" 
                     src={hamburgerIcon} 
+                    onClick={handleHamburgerOnClick}
                     />
                 </div>
 
                 <div 
+                id="logoContainer"
                 className="
                 col 
                 logoContainer 
@@ -100,20 +168,42 @@ const Root = () => {
                 </div>
 
                 <div 
+                id="searchBarContainer"
+                className="col hide"
+                >
+                    <SearchBar />
+                </div>
+
+                <div 
                 className="
                 col 
-                searchIconContainer 
+                headerIconContainer 
                 bg-
                 p-0 m-0 
                 justify-content-end
                 "
                 >
-                    <img className="headerIcon m-0 rounded img-fluid" src={searchIcon} />
+                    <img 
+                    id="searchMenu-toggle"
+                    className="headerIcon m-0 rounded img-fluid" 
+                    src={searchIcon}
+                    onClick={handleSearchMenuToggleOnClick}
+                    />
                     
                 </div>
 
-                <div className="col text-end searchBar">
-                    <SearchBar />
+                
+            </div>
+
+            <div
+            id="searchMenuPage"
+            className="searchMenuPage"
+            >
+                <div
+                id="searchMenuContainer"
+                className="searchMenuContainer bg-dark rounded"
+                >
+                    <MobileSearchMenu />
                 </div>
             </div>
 

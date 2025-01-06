@@ -70,6 +70,7 @@ const SearchResults = () => {
             {searchResults.length > 0 && 
                 <>
                     <h2>Search Results for {searchTerm}</h2>
+                    <div className="pagePostsDivider"></div>
                     {searchConstraint === "posts" ? 
                         <RedditPosts redditPosts={searchResults} />
                         :

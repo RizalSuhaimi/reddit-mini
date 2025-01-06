@@ -62,6 +62,7 @@ const Subreddit = () => {
             className="
                 d-flex
                 align-items-center
+                mb-2
             "
             >
                 {srIconImg ?
@@ -76,6 +77,7 @@ const Subreddit = () => {
                 
                 <h2>r/{subreddit}</h2>
             </div>
+            <div className="pagePostsDivider"></div>
             {initialLoading && 
                 <div className="d-flex  justify-content-center">
                     <div className="spinner-border" role="status"></div>
