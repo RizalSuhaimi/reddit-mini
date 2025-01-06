@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { 
-    useNavigate, 
-    useLocation, 
+    useNavigate,
     createSearchParams,
     useSearchParams
 } from "react-router-dom";
@@ -15,11 +14,11 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 const MobileSearchMenu = () => {
     const searchInputRef = useRef(null);
-    const searchConstraintRef = useRef(null);
-    const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ searchParams ] = useSearchParams();    
+    const [ searchParams ] = useSearchParams();
+
+    const [searchConstraint, selectSearchConstraint] = useState("posts");
 
     const onSearchHandler = (event) => {
         event.preventDefault();
@@ -29,17 +28,17 @@ const MobileSearchMenu = () => {
         }
         const queryString = createSearchParams(query)
     
-        const searchConstraint = {
-            type: searchConstraintRef.current.value
+        const searchConstraintObject = {
+            type: searchConstraint
         }
-        const searchConstraintString = createSearchParams(searchConstraint)
+        const searchConstraintString = createSearchParams(searchConstraintObject)
 
         if (searchInputRef.current.value) {
             if (searchParams.size !== 0) {
                 let urlTerm = searchParams.get("q");
                 let urlConstraint = searchParams.get("type");
 
-                if (searchInputRef.current.value !== urlTerm || searchConstraintRef.current.value !== urlConstraint) {
+                if (searchInputRef.current.value !== urlTerm || searchConstraint !== urlConstraint) {
                     dispatch(resetState("Search Button"));
                     navigate({
                         pathname: ROUTES.searchRoute(),
@@ -76,16 +75,33 @@ const MobileSearchMenu = () => {
                         placeholder="Search Reddit"
                     />
 
-                    <select
-                        
-                        defaultValue="posts"
-                        id="search-constraint"
-                        ref={searchConstraintRef}
-                        className="form-select w-100 border-white my-2"
-                    >
-                        <option value="posts">Posts</option>
-                        <option value="subreddits">Subreddits</option>
-                    </select>
+                    <section className="searchConstraint" >
+                            
+                        <div className="d-flex">
+                            <input 
+                            type="radio" 
+                            name="searchConstraint" 
+                            id="posts" 
+                            value="posts"
+                            checked={searchConstraint === "posts"}
+                            onChange={(e) => selectSearchConstraint(e.target.value)}
+                            />
+                            <label htmlFor="posts" className="ms-1">Posts</label>
+                        </div>
+
+                        <div className="d-flex">
+                            <input 
+                            type="radio" 
+                            name="searchConstraint" 
+                            id="subreddits" 
+                            value="subreddits"
+                            checked={searchConstraint === "subreddits"}
+                            onChange={(e) => selectSearchConstraint(e.target.value)}
+                            />
+                            <label htmlFor="subreddits" className="ms-1">Subreddits</label>
+                        </div>
+                            
+                    </section>
                     
                     <button 
                         type="submit" 
