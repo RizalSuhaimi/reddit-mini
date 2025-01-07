@@ -39,7 +39,6 @@ const Root = () => {
 
     const initialLoading = isLoadingSubreddits && subreddits.length === 0;
 
-    // Testing zone
     const sidePanelRef = useRef(null);
     const hamburgerRef = useRef(null);
     const searchMenuToggleRef = useRef(null);
@@ -64,7 +63,6 @@ const Root = () => {
             };
         };
     }, []);  // Empty dependency array since the references don't change
-    // testing zone
 
     useEffect(() => {
         window.addEventListener("click", handleHideSidePanel);
