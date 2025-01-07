@@ -1,6 +1,6 @@
 // Tried to use "@ffmpeg/ffmpeg" and "@ffmpeg/util" tp merge the video and audio files but could not figure it out
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 import "./RenderVideo.css"
 
@@ -32,26 +32,26 @@ const RenderVideo = ({ videoString }) => {
     }
 
     // Handle video time updates to sync audio
-    const handleTimeUpdate = () => {
+    const handleTimeUpdate = useCallback(() => {
         syncAudioWithVideo();
-    }
+    }, []);
 
     // Handle video buffering (waiting event)
-    const handleBuffering = () => {
+    const handleBuffering = useCallback(() => {
         if (audioRef.current) {
             if(audioRef.current.currentTime !== videoRef.current.currentTime) {
                 audioRef.current.pause();
             }
         }
-    }
+    }, []);
 
     // Handle video resume from buffering (playing event)
-    const handleResumePlaying = () => {
+    const handleResumePlaying = useCallback(() => {
         if (audioRef.current) {
             syncAudioWithVideo();
             audioRef.current.play();
         }
-    }
+    }, [])
 
     useEffect(() => {
         const video = videoRef.current;

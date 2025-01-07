@@ -12,7 +12,7 @@ export const loadRedditPosts = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            console.log(`loadRedditPosts ran`)
+            
             let jsonResponse;
             try {
                 jsonResponse = await response.json();
@@ -99,71 +99,6 @@ export const selectErrorMessage = (state) => state.redditPosts.errorMessage;
 export default redditPostsSlice.reducer;
 
 // Data on subreddit post for feed
-const mockRedditPosts = {
-    data: {
-        after: "t1",
-        before: "s1",
-        children: [
-            {
-                data: {
-                    id: "1hbtcy9",
-                    author: "McMechanic",
-                    name: "b1",
-                    title: "Wanted posters of healthcare CEOs are starting to pop up in NYC",
-                    subreddit: "pics",
-                    subreddit_name_prefixed: "r/pics",
-                    thumbnail: "https://b.thumbs.redditmedia.com/C695qg-mo9aY9rqLeBc5Z-9nwijyLCVN7rpkAr7MmWM.jpg",
-                    score: 21,
-                    num_comments: 11,
-                    permalink: "/r/pics/comments/1hbtcy9/wanted_posters_of_healthcare_ceos_are_starting_to/",
-                    created: 73737373,
-                    secure_media: { // Need to check if has value
-                        reddit_video: { // Need to check if has value
-                            fallback_url: "https://v.redd.it/hpab42naxm6e1/DASH_96.mp4" // Need to check if has value
-                            }
-                        },
-                    total_awards_received: 1,
-                    url: "https://i.redd.it/hccvvac88o6e1.jpeg", // Need to check if has value, and if it's a .jpeg/.png file
-                    url_overridden_by_dest: "https://i.redd.it/hccvvac88o6e1.jpeg" // Need to check if has value, and if it's a .jpeg/.png file
-                },
-            },
-
-            {
-                data: {
-                    id: "1hccdac",
-                    author: "McMechanic",
-                    name: "b2",
-                    title: "Rounding should be illegal",
-                    subreddit: "Bolehland",
-                    subreddit_name_prefixed: "r/Bolehland",
-                    thumbnail: "https://b.thumbs.redditmedia.com/C695qg-mo9aY9rqLeBc5Z-9nwijyLCVN7rpkAr7MmWM.jpg",
-                    score: 22,
-                    num_comments: 12,
-                    permalink: "/r/Bolehland/comments/1hccdac/rounding_should_be_illegal/",
-                    created: 73737374
-                },
-            },
-            
-            {
-                data: {
-                    id: "1hccrsn",
-                    author: "McMechanic",
-                    name: "b3",
-                    title: "Neighbors threw cat outside in 10f weather",
-                    subreddit: "cats",
-                    subreddit_name_prefixed: "r/cats",
-                    thumbnail: "https://b.thumbs.redditmedia.com/C695qg-mo9aY9rqLeBc5Z-9nwijyLCVN7rpkAr7MmWM.jpg",
-                    score: 23,
-                    num_comments: 13,
-                    permalink: "/r/cats/comments/1hccrsn/neighbors_threw_cat_outside_in_10f_weather/",
-                    created: 73737375
-                },
-            },
-        
-        ]
-    }
-}
-
 
 // jsonResponse.data.children
 

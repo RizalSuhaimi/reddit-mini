@@ -77,64 +77,64 @@ export default fullPostSlice.reducer;
 
 
 
-const mockRedditPost = [
-    {
-        kind: "Listing",
-        data: {
-            after: "t1",
-            before: "s1",
-            children: [ // This is the main post
-                {
-                    data: {
-                        id: "1hbtcy9",
-                        name: "b1",
-                        title: "Wanted posters of healthcare CEOs are starting to pop up in NYC",
-                        subreddit: "pics",
-                        subreddit_name_prefixed: "r/pics",
-                        thumbnail: "https://b.thumbs.redditmedia.com/C695qg-mo9aY9rqLeBc5Z-9nwijyLCVN7rpkAr7MmWM.jpg",
-                        selftext: "This is the main content of the full bloody post that I want everybody on the internet right now to read with full attention. Give comment after you have finished reading",
-                        upvotes: 21,
-                        num_comments: 11,
-                        permalink: "/r/pics/comments/1hbtcy9/wanted_posters_of_healthcare_ceos_are_starting_to/",
-                        created: 73737373,
-                        secure_media: { // Need to check if has value
-                            reddit_video: { // Need to check if has value
-                                fallback_url: "https://v.redd.it/hpab42naxm6e1/DASH_96.mp4" // Need to check if has value
-                                }
-                            },
-                        total_awards_received: 1,
-                        url: "https://i.redd.it/hccvvac88o6e1.jpeg", // Need to check if has value, and if it's a .jpeg/.png file
-                        url_overridden_by_dest: "https://i.redd.it/hccvvac88o6e1.jpeg" // Need to check if has value, and if it's a .jpeg/.png file
-                    },
-                },
-            ]
-        }
-    },
-    {
-        kind: "Listing",
-        data: {
-            children: [ // Comments are in here
-                {
-                    kind: "t1",
-                    data: {
-                        id: "c1",
-                        author: "Spirited-Ad6144",
-                        body: "NTA. Your son is just looking for excuses not to be a father.",
-                        replies: {},
-                        score: 164
-                    }
-                },
-                {
-                    kind: "t1",
-                    data: {
-                        id: "c1",
-                        author: "Spirited-Ad6144",
-                        body: "NTA. Your son is just looking for excuses not to be a father.",
-                        replies: {},
-                        score: 164
-                    }
-                },
-            ]
-        }
-    }
-]
+// const mockRedditPost = [
+//     {
+//         kind: "Listing",
+//         data: {
+//             after: "t1",
+//             before: "s1",
+//             children: [ // This is the main post
+//                 {
+//                     data: {
+//                         id: "1hbtcy9",
+//                         name: "b1",
+//                         title: "Wanted posters of healthcare CEOs are starting to pop up in NYC",
+//                         subreddit: "pics",
+//                         subreddit_name_prefixed: "r/pics",
+//                         thumbnail: "https://b.thumbs.redditmedia.com/C695qg-mo9aY9rqLeBc5Z-9nwijyLCVN7rpkAr7MmWM.jpg",
+//                         selftext: "This is the main content of the full bloody post that I want everybody on the internet right now to read with full attention. Give comment after you have finished reading",
+//                         upvotes: 21,
+//                         num_comments: 11,
+//                         permalink: "/r/pics/comments/1hbtcy9/wanted_posters_of_healthcare_ceos_are_starting_to/",
+//                         created: 73737373,
+//                         secure_media: { // Need to check if has value
+//                             reddit_video: { // Need to check if has value
+//                                 fallback_url: "https://v.redd.it/hpab42naxm6e1/DASH_96.mp4" // Need to check if has value
+//                                 }
+//                             },
+//                         total_awards_received: 1,
+//                         url: "https://i.redd.it/hccvvac88o6e1.jpeg", // Need to check if has value, and if it's a .jpeg/.png file
+//                         url_overridden_by_dest: "https://i.redd.it/hccvvac88o6e1.jpeg" // Need to check if has value, and if it's a .jpeg/.png file
+//                     },
+//                 },
+//             ]
+//         }
+//     },
+//     {
+//         kind: "Listing",
+//         data: {
+//             children: [ // Comments are in here
+//                 {
+//                     kind: "t1",
+//                     data: {
+//                         id: "c1",
+//                         author: "Spirited-Ad6144",
+//                         body: "NTA. Your son is just looking for excuses not to be a father.",
+//                         replies: {},
+//                         score: 164
+//                     }
+//                 },
+//                 {
+//                     kind: "t1",
+//                     data: {
+//                         id: "c1",
+//                         author: "Spirited-Ad6144",
+//                         body: "NTA. Your son is just looking for excuses not to be a father.",
+//                         replies: {},
+//                         score: 164
+//                     }
+//                 },
+//             ]
+//         }
+//     }
+// ]

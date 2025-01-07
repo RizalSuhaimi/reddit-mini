@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -39,48 +39,51 @@ const Root = () => {
 
     const initialLoading = isLoadingSubreddits && subreddits.length === 0;
 
+    // Testing zone
+    const sidePanelRef = useRef(null);
+    const hamburgerRef = useRef(null);
+    const searchMenuToggleRef = useRef(null);
+    const searchMenuPageRef = useRef(null);
 
-    let sidePanel 
-    let hamburger
-    useEffect(() => {
-        sidePanel = document.getElementById("side-panel");
-        hamburger = document.getElementById("side-panel-toggle");
-    })  // For some reason, this only works when I don't set up the dependency array
+    const handleHamburgerOnClick = useCallback(() => {
+        const sidePanel = sidePanelRef.current;
+        const hamburger = hamburgerRef.current;
 
-    const handleHamburgerOnClick = () => {
         sidePanel.classList.toggle("show");
         hamburger.classList.toggle("isActive");
-    };
+    }, []);  // Empty dependency array since the references don't change
 
-    // Hides the sidebar when user clicks anywhere outside the side panel
-    const handleHideSidePanel = (event) => {
+    const handleHideSidePanel = useCallback((event) => {
+        const sidePanel = sidePanelRef.current;
+        const hamburger = hamburgerRef.current;
+
         if (sidePanel.classList.contains("show")) {
             if (!event.target.closest("#side-panel") && !event.target.closest("#side-panel-toggle")) {
                 sidePanel.classList.remove("show");
                 hamburger.classList.remove("isActive");
             };
         };
-    };
+    }, []);  // Empty dependency array since the references don't change
+    // testing zone
 
     useEffect(() => {
         window.addEventListener("click", handleHideSidePanel);
         return () => window.removeEventListener("click", handleHideSidePanel);
     }, [location, handleHideSidePanel])
 
-    let searchMenuToggle
-    let searchMenuPage
-    useEffect(() => {
-        searchMenuToggle = document.getElementById("searchMenu-toggle")
-        searchMenuPage = document.getElementById("searchMenuPage")
-    }); // For some reason, this only works when I don't set up the dependency array
+    const handleSearchMenuToggleOnClick = useCallback(() => {
+        const searchMenuToggle = searchMenuToggleRef.current;
+        const searchMenuPage = searchMenuPageRef.current;
 
-    const handleSearchMenuToggleOnClick = () => {
         searchMenuToggle.classList.toggle("isActive");
         searchMenuPage.classList.toggle("show")
         document.body.style.overflow = "hidden";
-    };
+    }, []);
 
-    const handleHideSearchMenuPage = (event) => {
+    const handleHideSearchMenuPage = useCallback((event) => {
+        const searchMenuToggle = searchMenuToggleRef.current;
+        const searchMenuPage = searchMenuPageRef.current;
+
         if (searchMenuPage.classList.contains("show")) {
             if (!event.target.closest("#searchMenuContainer") && !event.target.closest("#searchMenuToggle")) {
                 searchMenuPage.classList.remove("show");
@@ -88,15 +91,22 @@ const Root = () => {
                 document.body.style.overflow = "auto";
             };
         }
-    };
+    }, []);
 
     useEffect(() => {
+        const searchMenuPage = searchMenuPageRef.current;
+
         searchMenuPage.addEventListener("click", handleHideSearchMenuPage);
         return () => searchMenuPage.removeEventListener("click", handleHideSearchMenuPage);
     }, [location, handleHideSearchMenuPage])
 
     // Hides side panel and mobile search menu after every reroute
     useEffect(() => {
+        const sidePanel = sidePanelRef.current;
+        const hamburger = hamburgerRef.current;
+        const searchMenuToggle = searchMenuToggleRef.current;
+        const searchMenuPage = searchMenuPageRef.current;
+
         if (sidePanel.classList.contains("show")) {
             sidePanel.classList.remove("show");
         }
@@ -110,7 +120,7 @@ const Root = () => {
             searchMenuToggle.classList.remove("isActive");
         }
         document.body.style.overflow = "auto"; // Need this for when users press back after they opened the search menu
-    }, [location, hamburger, searchMenuPage, searchMenuToggle, sidePanel]);
+    }, [location]);
 
     return (
         <div 
@@ -149,6 +159,7 @@ const Root = () => {
                 >
                     <img 
                     id="side-panel-toggle" 
+                    ref={hamburgerRef}
                     className="headerIcon m-0 rounded img-fluid" 
                     src={hamburgerIcon} 
                     onClick={handleHamburgerOnClick}
@@ -186,6 +197,7 @@ const Root = () => {
                 >
                     <img 
                     id="searchMenu-toggle"
+                    ref={searchMenuToggleRef}
                     className="headerIcon m-0 rounded img-fluid" 
                     src={searchIcon}
                     onClick={handleSearchMenuToggleOnClick}
@@ -199,6 +211,7 @@ const Root = () => {
 
             <div
             id="searchMenuPage"
+            ref={searchMenuPageRef}
             className="searchMenuPage"
             >
                 <div
@@ -219,6 +232,7 @@ const Root = () => {
             >
                 <nav 
                 id="side-panel"
+                ref={sidePanelRef}
                 className="
                     side-panel
                     justify-content-center
