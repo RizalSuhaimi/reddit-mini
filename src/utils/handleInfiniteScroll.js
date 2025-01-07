@@ -2,11 +2,6 @@ const handleInfiniteScroll = (dispatch, isLoadingFetch, fetchCall, fetchCallName
     return () => {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoadingFetch || stopInfiniteScroll) {
 
-            // Delete the block below after all testing is done
-            if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && stopInfiniteScroll) {
-                stopInfiniteScroll && console.log("All possible elements retrieved and displayed");
-            }
-
             return;
         }
 

@@ -8,9 +8,7 @@ const filterRepeatingElements = (existingArr=[], appendingArr) => {
     if (existingArr.length > 0) {
         existingIds = existingArr.map((element) => element.data.id);
         filteredData = appendingArr.filter((element) => {
-            if (!existingIds.includes(element.data.id)) {
-                return element;
-            } 
+            return !existingIds.includes(element.data.id) // If true is returned, the element will be included in the filteredData, and if false is returned, it will be excluded.
         })
     } else {
         filteredData = appendingArr
