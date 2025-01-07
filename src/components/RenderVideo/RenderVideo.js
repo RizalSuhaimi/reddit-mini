@@ -67,7 +67,7 @@ const RenderVideo = ({ videoString }) => {
                 video.removeEventListener("playing", handleResumePlaying);
             };
         };
-    }, [])
+    }, [handleResumePlaying, handleBuffering, handleTimeUpdate])
 
     return (
         <>

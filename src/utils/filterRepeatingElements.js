@@ -10,9 +10,7 @@ const filterRepeatingElements = (existingArr=[], appendingArr) => {
         filteredData = appendingArr.filter((element) => {
             if (!existingIds.includes(element.data.id)) {
                 return element;
-            } else {
-                console.log("Found a repeating element")
-            }
+            } 
         })
     } else {
         filteredData = appendingArr

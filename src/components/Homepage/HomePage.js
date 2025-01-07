@@ -41,7 +41,7 @@ const HomePage = () => {
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [after, isLoadingRedditPosts, dispatch, stopInfiniteScroll])
+    }, [after, isLoadingRedditPosts, dispatch, handleScroll])
 
 
     useEffect(() => {

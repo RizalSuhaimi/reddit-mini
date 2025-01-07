@@ -101,6 +101,7 @@ const FullPost = () => {
                                         fullPostImg
                                         my-2
                                     "
+                                    alt={fullPost.title}
                                 />
                             </>
                         }
@@ -113,18 +114,18 @@ const FullPost = () => {
                         <div
                         className="d-flex align-items-center"
                         >   
-                            <img src={arrow} className="postIcons"/>
+                            <img src={arrow} className="postIcons" alt="decorative upvote arrow"/>
                             <p className="my-0 mx-1">{fullPost.score}</p>
-                            <img src={arrow} className="postIcons-down"/>
+                            <img src={arrow} className="postIcons-down" alt="decorative downvote arrow"/>
 
                             <div className="fs-1 mx-2 text-secondary">l</div>
 
-                            <img src={comment} className="postIcons"/>
+                            <img src={comment} className="postIcons" alt="decorative comments icon"/>
                             <p className="my-0 ms-1">{fullPost.num_comments}</p>
 
                             <div className="fs-1 mx-2 text-secondary">l</div>
                             
-                            <img src={trophy} className="postIcons"/>
+                            <img src={trophy} className="postIcons" alt="decorative awards icon"/>
                             <p className="my-0 ms-1">{fullPost.total_awards_received}</p>
                         </div>
                         
@@ -154,13 +155,13 @@ const FullPost = () => {
                                         <ReactMarkdown>{comment.data.body}</ReactMarkdown>
 
                                         <div className="d-flex align-items-center">
-                                            <img src={arrow} className="postIcons"/>
+                                            <img src={arrow} className="postIcons" alt="decorative upvote arrow"/>
                                             <p className="my-0 mx-1">{comment.data.score}</p>
-                                            <img src={arrow} className="postIcons-down"/>
+                                            <img src={arrow} className="postIcons-down" alt="decorative downvote arrow"/>
 
                                             <div className="fs-1 mx-3 text-secondary">l</div>
                                             
-                                            <img src={trophy} className="postIcons"/>
+                                            <img src={trophy} className="postIcons" alt="decorative awards icon"/>
                                             <p className="my-0 mx-1">{comment.data.total_awards_received}</p>
                                         </div>
                                         

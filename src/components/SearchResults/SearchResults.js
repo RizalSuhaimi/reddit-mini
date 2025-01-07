@@ -5,8 +5,6 @@ import {
     runSearch,
     selectSearchResults,
     selectAfter,
-    selectSearchTerm,
-    selectSearchConstraint,
     selectErrorMessage,
     isLoading,
     resetState,
@@ -36,7 +34,7 @@ const SearchResults = () => {
         return () => {
             dispatch(resetState("SearchResults unmounting"));
         }
-    }, [dispatch, location])
+    }, [dispatch, location, searchTerm, searchConstraint])
 
     const handleScroll = handleInfiniteScroll(
         dispatch, 
@@ -50,7 +48,7 @@ const SearchResults = () => {
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [after, isLoadingSearchResults, dispatch, stopInfiniteScroll])
+    }, [after, isLoadingSearchResults, dispatch, handleScroll])
 
     const initialLoading = isLoadingSearchResults && searchResults.length === 0;
     const scrollLoading = isLoadingSearchResults && searchResults.length > 0;

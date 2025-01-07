@@ -83,6 +83,7 @@ const RedditPosts = ({redditPosts}) => {
                                                 redditPostImg
                                                 my-2
                                             "
+                                            alt={post.data.title}
                                         />
                                     </>
                                 }
@@ -98,18 +99,18 @@ const RedditPosts = ({redditPosts}) => {
                                 }
 
                                 <div className="d-flex align-items-center">
-                                    <img src={arrow} className="postIcons"/>
+                                    <img src={arrow} className="postIcons" alt="decorative upvote arrow"/>
                                     <p className="my-0 mx-1">{post.data.score}</p>
-                                    <img src={arrow} className="postIcons-down"/>
+                                    <img src={arrow} className="postIcons-down" alt="decorative downvote arrow"/>
 
                                     <div className="fs-1 mx-2 text-secondary">l</div>
 
-                                    <img src={comment} className="postIcons"/>
+                                    <img src={comment} className="postIcons" alt="decorative comments icon"/>
                                     <p className="my-0 ms-1">{post.data.num_comments}</p>
 
                                     <div className="fs-1 mx-2 text-secondary">l</div>
 
-                                    <img src={trophy} className="postIcons"/>
+                                    <img src={trophy} className="postIcons" alt="decorative awards icon"/>
                                     <p className="my-0 ms-1">{post.data.total_awards_received}</p>
                                 </div>
                                 

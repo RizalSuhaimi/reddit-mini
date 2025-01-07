@@ -45,7 +45,7 @@ const Root = () => {
     useEffect(() => {
         sidePanel = document.getElementById("side-panel");
         hamburger = document.getElementById("side-panel-toggle");
-    })
+    })  // For some reason, this only works when I don't set up the dependency array
 
     const handleHamburgerOnClick = () => {
         sidePanel.classList.toggle("show");
@@ -65,14 +65,14 @@ const Root = () => {
     useEffect(() => {
         window.addEventListener("click", handleHideSidePanel);
         return () => window.removeEventListener("click", handleHideSidePanel);
-    }, [location])
+    }, [location, handleHideSidePanel])
 
     let searchMenuToggle
     let searchMenuPage
     useEffect(() => {
         searchMenuToggle = document.getElementById("searchMenu-toggle")
         searchMenuPage = document.getElementById("searchMenuPage")
-    });
+    }); // For some reason, this only works when I don't set up the dependency array
 
     const handleSearchMenuToggleOnClick = () => {
         searchMenuToggle.classList.toggle("isActive");
@@ -93,7 +93,7 @@ const Root = () => {
     useEffect(() => {
         searchMenuPage.addEventListener("click", handleHideSearchMenuPage);
         return () => searchMenuPage.removeEventListener("click", handleHideSearchMenuPage);
-    }, [location])
+    }, [location, handleHideSearchMenuPage])
 
     // Hides side panel and mobile search menu after every reroute
     useEffect(() => {
@@ -110,7 +110,7 @@ const Root = () => {
             searchMenuToggle.classList.remove("isActive");
         }
         document.body.style.overflow = "auto"; // Need this for when users press back after they opened the search menu
-    }, [location]);
+    }, [location, hamburger, searchMenuPage, searchMenuToggle, sidePanel]);
 
     return (
         <div 
@@ -152,6 +152,7 @@ const Root = () => {
                     className="headerIcon m-0 rounded img-fluid" 
                     src={hamburgerIcon} 
                     onClick={handleHamburgerOnClick}
+                    alt="side panel toggle button"
                     />
                 </div>
 
@@ -188,6 +189,7 @@ const Root = () => {
                     className="headerIcon m-0 rounded img-fluid" 
                     src={searchIcon}
                     onClick={handleSearchMenuToggleOnClick}
+                    alt="search menu toggle button"
                     />
                     
                 </div>
@@ -243,7 +245,7 @@ const Root = () => {
                             p-1
                         "
                         >
-                            <img className="home-icon" src={homeIcon}/>
+                            <img className="home-icon" src={homeIcon} alt="decorative home icon"/>
                             <p className="text-center fs-5 m-0">Home</p>
                         </Link>
                     </div>
