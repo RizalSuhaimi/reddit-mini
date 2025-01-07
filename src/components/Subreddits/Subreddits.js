@@ -84,6 +84,7 @@ const Subreddits = (props) => {
                                             <img 
                                                 className="sr_icon_32"
                                                 src={subreddit.data.icon_img}
+                                                alt={`icon for ${subreddit.data.display_name_prefixed} subreddit`}
                                             />
                                         :
                                             <div
@@ -160,6 +161,7 @@ const Subreddits = (props) => {
                                                 <img 
                                                 className="sr_icon_40"
                                                 src={subreddit.data.icon_img}
+                                                alt={`icon for ${subreddit.data.display_name_prefixed} subreddit`}
                                                 />
                                             :
                                                 <div
@@ -241,6 +243,7 @@ const Subreddits = (props) => {
                                                 <img 
                                                 className="sr_icon_40"
                                                 src={subreddit.data.icon_img}
+                                                alt={`icon for ${subreddit.data.display_name_prefixed} subreddit`}
                                                 />
                                             :
                                                 <div

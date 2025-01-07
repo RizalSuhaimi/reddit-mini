@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { 
     loadRedditPosts,
     selectRedditPosts,
-    selectSrIcon,
     selectAfter,
     selectErrorMessage,
     isLoading,
@@ -35,7 +34,7 @@ const Subreddit = () => {
         return () => {
             dispatch(resetState(`r/${subreddit} subreddit`));
         };
-    }, [dispatch, location])
+    }, [dispatch, location, subreddit])
 
 
     const handleScroll = handleInfiniteScroll(
@@ -50,7 +49,7 @@ const Subreddit = () => {
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [after, isLoadingRedditPosts, dispatch, stopInfiniteScroll])
+    }, [after, isLoadingRedditPosts, dispatch, handleScroll])
 
     // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
     const initialLoading = isLoadingRedditPosts && redditPosts.length === 0 && !stopInfiniteScroll;
@@ -66,7 +65,11 @@ const Subreddit = () => {
             "
             >
                 {srIconImg ?
-                    <img className="sr-icon me-2" src={srIconImg}/>
+                    <img 
+                    className="sr-icon me-2" 
+                    src={srIconImg}
+                    alt={`icon for r/${subreddit} subreddit`}
+                    />
                     :
                     <div
                         className="sr-icon me-2"

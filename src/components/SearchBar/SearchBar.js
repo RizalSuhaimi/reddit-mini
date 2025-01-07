@@ -1,14 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { 
-    useNavigate, 
-    useLocation, 
+    useNavigate,
     createSearchParams,
     useSearchParams
 } from "react-router-dom";
 import ROUTES from "../../App/Routes";
 import {
-    runSearch,
     resetState
 } from "../SearchResults/SearchResultsSlice";
 
@@ -17,7 +15,6 @@ import "bootstrap/dist/css/bootstrap.min.css"
 const SearchBar = () => {
     const searchInputRef = useRef(null);
     const searchConstraintRef = useRef(null);
-    const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ searchParams ] = useSearchParams();    
