@@ -1,0 +1,141 @@
+.headerBar {
+    z-index: 20;
+
+}
+
+.side-panel {
+    width: 270px;
+    z-index: 10;
+}
+
+.side-panel.back {
+    z-index: -1;
+}
+
+.headerIconContainer {
+    display: none;
+}
+
+.searchMenuPage {
+    display: none;
+}
+
+@media only screen and (max-width: 1500px){
+    
+    .logoContainer {
+        display: flex;
+        width: 50vw;
+        justify-content: center;
+    }
+
+    .side-panel {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    /* .searchBar {
+        display: none;
+    } */
+
+    .headerIconContainer {
+        display: flex;
+        object-fit: fill;
+        max-width: fit-content;
+    }
+
+    #side-panel-toggle:hover {
+        background-color: rgb(50, 50, 50);
+        cursor: pointer;
+    }
+
+    #side-panel-toggle.isActive {
+        background-color: rgb(50, 50, 50);
+        border: 1px solid white;
+    }
+
+    #searchMenu-toggle:hover {
+        background-color: rgb(50, 50, 50);
+        cursor: pointer;
+    }
+
+    #searchMenu-toggle.isActive {
+        background-color: rgb(50, 50, 50);
+        border: 1px solid white;
+    }
+
+    .headerIcon {
+        width: 3.5vw;
+    }
+
+    .searchMenuPage {
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.705);
+        z-index: 30;
+        position: fixed;
+        top: 0;
+    }
+    
+    .searchMenuContainer {
+        width: 75%;
+        transform: translate(-50%, -50%);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        border: 1px solid white;
+    }
+    
+}
+@media only screen and (max-width: 1180px) {
+    .headerIcon {
+        width: 4vw;
+    }
+}
+
+@media only screen and (max-width: 840px) {
+    .headerIcon {
+        width: 5vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .headerIcon {
+        width: 6vw;
+    }
+}
+
+@media only screen and (max-width: 510px) {
+    .headerIcon {
+        width: 7.5vw;
+    }
+}
+
+@media only screen and (max-width: 410px) {
+    .headerIcon {
+        width: 8.5vw;
+    }
+}
+
+.home-button:hover {
+    background-color: rgb(50, 50, 50);
+}
+
+.home-button:active {
+    background-color: #0d6efd;
+}
+
+.home-icon {
+    height: 24px;
+    width: auto;
+}
+
+.hero {
+    width: 1200px;
+}

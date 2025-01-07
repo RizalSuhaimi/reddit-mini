@@ -28,7 +28,7 @@ export const runSearch = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            console.log("runSearch fetch called")
+            
             let jsonResponse;
             try {
                 jsonResponse = await response.json();
@@ -59,7 +59,8 @@ export const searchResultsSlice = createSlice({
     name: "searchResults",
     initialState,
     reducers: {
-        resetState: (state) => {
+        resetState: (state, action) => {
+            
             return initialState;
         }
     },

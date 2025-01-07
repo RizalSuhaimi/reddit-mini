@@ -1,0 +1,9 @@
+.redditPostVid {
+    display: block;
+    background-color: black;
+    width: 100%;
+    max-height: 540px;
+    object-fit: contain;
+    border: 1px solid rgb(124, 124, 124);
+    border-radius: 10px;
+}

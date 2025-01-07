@@ -1,0 +1,31 @@
+.redditPost:hover {
+    background-color: rgb(45, 45, 45);
+    transition: background-color 0.3s ease;
+}
+
+.redditPost:active {
+    background-color: rgb(45, 45, 45);
+    transition: none;
+}
+
+.redditPostImg {
+    display: block;
+    background-color: black;
+    width: 100%;
+    max-height: 540px;
+    object-fit: contain;
+    border: 1px solid rgb(124, 124, 124);
+    border-radius: 10px;
+}
+
+.postIcons {
+    height: 24px;
+    width: auto;
+}
+
+.postIcons-down {
+    height: 24px;
+    width: auto;
+    transform: rotateX(180deg);
+    
+}

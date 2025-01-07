@@ -14,6 +14,7 @@ import RedditPosts from "../RedditPosts/RedditPosts";
 import handleInfiniteScroll from "../../utils/handleInfiniteScroll";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./HomePage.css"
 
 const HomePage = () => {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const HomePage = () => {
 
     useEffect(() => {
         return () => {
-            dispatch(resetState());
+            dispatch(resetState("HomePage"));
         };
     }, [location, dispatch])
 
@@ -54,18 +55,29 @@ const HomePage = () => {
     const scrollLoading = isLoadingRedditPosts && redditPosts.length > 0 && !stopInfiniteScroll;
 
     return (
-        <div>
+        <>
             <h2>Trending in Reddit</h2>
-            {initialLoading && <div>Content is loading</div>}
+            <div className="pagePostsDivider"></div>
+            {initialLoading &&
+                <div className="d-flex justify-content-center my-2">
+                    <div className="spinner-border" role="status"></div>
+                    <p className="px-3 py-1">Loading Reddit posts</p>
+                </div>
+            }
 
-            {redditPostsErrorMessage && <div>{redditPostsErrorMessage}</div>}
+            {redditPostsErrorMessage && <p>{redditPostsErrorMessage}</p>}
 
             {redditPosts.length > 0 && <RedditPosts redditPosts={redditPosts}/>}
 
-            {scrollLoading && <div>Loading more posts...</div>}
+            {scrollLoading && 
+                <div className="d-flex  justify-content-center">
+                    <div className="spinner-border" role="status"></div>
+                    <p className="px-3 py-1">Loading more posts</p>
+                </div>
+            }
 
-            {stopInfiniteScroll && <div>No more posts...</div>}
-        </div>
+            {stopInfiniteScroll && <p>No more posts...</p>}
+        </>
     )
 }
 

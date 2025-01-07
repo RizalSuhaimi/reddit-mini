@@ -5,14 +5,14 @@ import filterRepeatingElements from "../../utils/filterRepeatingElements";
 
 export const loadRedditPosts = createAsyncThunk(
     "redditPosts/loadRedditPosts",
-    async ({ subreddit = "popular", after=null }, thunkApi) => {
+    async ({ subreddit = "popular", srIconImg=null, after=null }, thunkApi) => {
         try {
             const response = await fetch(`https://www.reddit.com/r/${subreddit}/.json?${after ? `after=${after}` : ""}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            console.log("loadRedditPosts fetch called")
+            
             let jsonResponse;
             try {
                 jsonResponse = await response.json();
@@ -20,10 +20,10 @@ export const loadRedditPosts = createAsyncThunk(
                 throw new Error(`Error parsing JSON response: ${jsonError}`)
             }
             
-            return jsonResponse;
+            return { jsonResponse, srIconImg };
         } catch (error) {
             // Use 'rejectWithValue' to return a custom error message to the reducer
-            console.log(error)
+            
             return thunkApi.rejectWithValue(error.message);
         }
     }
@@ -31,6 +31,7 @@ export const loadRedditPosts = createAsyncThunk(
 
 const initialState = {
     redditPosts: [],
+    srIconImg: null,
     after: null,
     gotAllPosts: false,
     isLoading: false,
@@ -42,8 +43,11 @@ export const redditPostsSlice = createSlice({
     name: "redditPosts",
     initialState,
     reducers: {
-        resetState: (state) => { // This is needed for when users go from the HomePage to a Subreddit page and vice versa
-            return initialState;
+        resetState: (state, action) => { // This is needed for when users go from the HomePage to a Subreddit page and vice versa
+            
+        },
+        setSrIconImg: (state, action) => {
+            state.srIconImg = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -54,7 +58,7 @@ export const redditPostsSlice = createSlice({
                 state.errorMessage = "";
             })
             .addCase(loadRedditPosts.fulfilled, (state, action) => {
-                const { data } = action.payload;
+                const { data } = action.payload.jsonResponse;
 
                 // This prevents the user from seeing the same post more than once
                 const filteredData = filterRepeatingElements(state.redditPosts, data.children);
@@ -67,6 +71,7 @@ export const redditPostsSlice = createSlice({
                 }
 
                 state.redditPosts = [...state.redditPosts, ...filteredData];
+                state.srIconImg = action.payload.srIconImg;
                 state.after = data.after;
                 state.isLoading = false;
                 state.hasError = false;
@@ -85,6 +90,7 @@ export const redditPostsSlice = createSlice({
 export const { resetState } = redditPostsSlice.actions;
 
 export const selectRedditPosts = (state) => state.redditPosts.redditPosts;
+export const selectSrIcon = (state) => state.redditPosts.srIconImg;
 export const selectAfter = (state) => state.redditPosts.after;
 export const gotAllPosts = (state) => state.redditPosts.gotAllPosts;
 export const isLoading = (state) => state.redditPosts.isLoading;
