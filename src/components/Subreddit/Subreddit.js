@@ -17,8 +17,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Subreddit.css"
 
 const Subreddit = () => {
-    // The API fetch function was executed onClick, so it's unnecessary to dispatch loadRedditPosts immediately upon rendering this component
-
     const dispatch = useDispatch();
     const location = useLocation();
     const redditPosts = useSelector(selectRedditPosts);
