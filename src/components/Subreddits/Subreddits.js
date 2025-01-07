@@ -180,7 +180,7 @@ const Subreddits = (props) => {
                                         
                                         <p className="m-0 fs-5">{subreddit.data.title}</p>
 
-                                        <p className="m-0">Subcribers: {subreddit.data.subscribers}</p>
+                                        <p className="m-0">{subreddit.data.subscribers} members</p>
                                     </div>
                                 </Link>
                                 <div className="border-top"></div>
@@ -262,7 +262,7 @@ const Subreddits = (props) => {
 
                                         <p className="m-0 fs-5">{subreddit.data.title}</p>
 
-                                        <p className="m-0">Members: {subreddit.data.subscribers}</p>
+                                        <p className="m-0">{subreddit.data.subscribers} members</p>
                                     </div>
                                 </Link>
                                 <div className="border-top"></div>

@@ -37,7 +37,7 @@ const FullPost = () => {
         };
     }, [location, dispatch, permalink])
 
-    const hasImage = (imageString) => {
+    const hasImage = (imageString = "") => {
         if (imageString.includes(".jpeg") || imageString.includes(".jpg") || imageString.includes(".png") || imageString.includes(".gif")) {
             return true;
         } else {
@@ -152,7 +152,16 @@ const FullPost = () => {
                                     >
                                         <p style={{color: "rgb(200, 200, 200)"}}>by u/{comment.data.author}</p>
                                         
-                                        <ReactMarkdown>{comment.data.body}</ReactMarkdown>
+                                        {hasImage(comment.data.body) ? 
+                                        <p>
+                                            Comments with images are unavailable in this app. Apologies for the inconvenience.
+                                        </p> 
+                                        : 
+                                        <>
+                                            <ReactMarkdown>{comment.data.body}</ReactMarkdown>
+                                        </>
+                                        }
+                                        
 
                                         <div className="d-flex align-items-center">
                                             <img src={arrow} className="postIcons" alt="decorative upvote arrow"/>
