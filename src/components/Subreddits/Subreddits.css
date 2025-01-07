@@ -27,7 +27,7 @@
 
 .sr_icon_40 {
     width: 40px;
-    height: 40;
+    height: auto;
     overflow: hidden;
     border: 1px solid rgb(185, 185, 185);
     border-radius: 100%;

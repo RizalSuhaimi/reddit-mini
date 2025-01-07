@@ -11,7 +11,7 @@ export const loadSubreddits = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            console.log("loadSubreddits fetch called")
+            
             let jsonResponse;
             try {
                 jsonResponse = await response.json();

@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ROUTES from "../../App/Routes";
-import {
-    loadRedditPosts
-} from "../RedditPosts/RedditPostsSlice";
 import { 
     loadSubreddits,
     selectSubreddits,
@@ -45,7 +42,7 @@ const Subreddits = (props) => {
         }
         
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [after, isLoadingSubreddits, dispatch, location, stopInfiniteScroll])
+    }, [after, isLoadingSubreddits, dispatch, location, handleScroll])
 
     // This needs 2 conditions because we don't want the user to lose scroll progress (start back at the top) when the app is loading for more Reddit posts
     const initialLoading = isLoadingSubreddits && subreddits.length === 0 && !stopInfiniteScroll;
@@ -256,13 +253,13 @@ const Subreddits = (props) => {
                                             <div 
                                             className="sr_title"
                                             >
-                                                <h3>{subreddit.data.display_name_prefixed}</h3>
+                                                <h4>{subreddit.data.display_name_prefixed}</h4>
                                             </div>
                                         </div>
 
                                         <p className="m-0 fs-5">{subreddit.data.title}</p>
 
-                                        <p className="m-0">Subcribers: {subreddit.data.subscribers}</p>
+                                        <p className="m-0">Members: {subreddit.data.subscribers}</p>
                                     </div>
                                 </Link>
                                 <div className="border-top"></div>

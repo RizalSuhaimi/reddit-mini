@@ -10,7 +10,6 @@ import Subreddits from '../components/Subreddits/Subreddits';
 import Subreddit from '../components/Subreddit/Subreddit';
 import FullPost from '../components/FullPost/FullPost';
 import SearchResults from '../components/SearchResults/SearchResults';
-// import styles from "../../css/bootstrap.css";
 
 function App() {
   useEffect(() => {
@@ -39,8 +38,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
-// Route structure:
-// localhost:3000/r/subreddit_name/comments/post_id/post_title/
 
 export default App;

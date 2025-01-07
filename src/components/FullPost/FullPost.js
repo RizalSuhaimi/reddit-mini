@@ -35,7 +35,7 @@ const FullPost = () => {
         return () => {
             dispatch(resetState());
         };
-    }, [location, dispatch])
+    }, [location, dispatch, permalink])
 
     const hasImage = (imageString) => {
         if (imageString.includes(".jpeg") || imageString.includes(".jpg") || imageString.includes(".png") || imageString.includes(".gif")) {
@@ -117,15 +117,15 @@ const FullPost = () => {
                             <p className="my-0 mx-1">{fullPost.score}</p>
                             <img src={arrow} className="postIcons-down"/>
 
-                            <div className="fs-1 mx-3 text-secondary">l</div>
+                            <div className="fs-1 mx-2 text-secondary">l</div>
 
                             <img src={comment} className="postIcons"/>
-                            <p className="my-0 mx-1">{fullPost.num_comments}</p>
+                            <p className="my-0 ms-1">{fullPost.num_comments}</p>
 
-                            <div className="fs-1 mx-3 text-secondary">l</div>
+                            <div className="fs-1 mx-2 text-secondary">l</div>
                             
                             <img src={trophy} className="postIcons"/>
-                            <p className="my-0 mx-1">{fullPost.total_awards_received}</p>
+                            <p className="my-0 ms-1">{fullPost.total_awards_received}</p>
                         </div>
                         
                     </div>

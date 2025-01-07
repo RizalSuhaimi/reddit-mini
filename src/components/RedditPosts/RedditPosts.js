@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import ROUTES from "../../App/Routes";
-import {
-    loadFullPost
-} from "../FullPost/FullPostSlice";
 import RenderVideo from "../RenderVideo/RenderVideo";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,8 +10,6 @@ import comment from "../../resources/comment.png";
 import trophy from "../../resources/trophy.png";
 
 const RedditPosts = ({redditPosts}) => {
-    const dispatch = useDispatch();
-
     const hasImage = (imageString) => {
         if (imageString.includes(".jpeg") || imageString.includes(".jpg") || imageString.includes(".png") || imageString.includes(".gif")) {
             return true;
@@ -108,15 +102,15 @@ const RedditPosts = ({redditPosts}) => {
                                     <p className="my-0 mx-1">{post.data.score}</p>
                                     <img src={arrow} className="postIcons-down"/>
 
-                                    <div className="fs-1 mx-3 text-secondary">l</div>
+                                    <div className="fs-1 mx-2 text-secondary">l</div>
 
                                     <img src={comment} className="postIcons"/>
-                                    <p className="my-0 mx-1">{post.data.num_comments}</p>
+                                    <p className="my-0 ms-1">{post.data.num_comments}</p>
 
-                                    <div className="fs-1 mx-3 text-secondary">l</div>
+                                    <div className="fs-1 mx-2 text-secondary">l</div>
 
                                     <img src={trophy} className="postIcons"/>
-                                    <p className="my-0 mx-1">{post.data.total_awards_received}</p>
+                                    <p className="my-0 ms-1">{post.data.total_awards_received}</p>
                                 </div>
                                 
                             </div>

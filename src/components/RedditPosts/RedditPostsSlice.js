@@ -12,7 +12,7 @@ export const loadRedditPosts = createAsyncThunk(
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            console.log("loadRedditPosts fetch called")
+            
             let jsonResponse;
             try {
                 jsonResponse = await response.json();
@@ -23,7 +23,7 @@ export const loadRedditPosts = createAsyncThunk(
             return { jsonResponse, srIconImg };
         } catch (error) {
             // Use 'rejectWithValue' to return a custom error message to the reducer
-            console.log(error)
+            
             return thunkApi.rejectWithValue(error.message);
         }
     }
@@ -44,8 +44,7 @@ export const redditPostsSlice = createSlice({
     initialState,
     reducers: {
         resetState: (state, action) => { // This is needed for when users go from the HomePage to a Subreddit page and vice versa
-            console.log(`resetState for redditPosts was called by ${action.payload}`)
-            return initialState;
+            
         },
         setSrIconImg: (state, action) => {
             state.srIconImg = action.payload;

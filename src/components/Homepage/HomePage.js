@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { 
     loadRedditPosts,
@@ -59,7 +59,7 @@ const HomePage = () => {
             <h2>Trending in Reddit</h2>
             <div className="pagePostsDivider"></div>
             {initialLoading &&
-                <div className="d-flex  justify-content-center">
+                <div className="d-flex justify-content-center my-2">
                     <div className="spinner-border" role="status"></div>
                     <p className="px-3 py-1">Loading Reddit posts</p>
                 </div>
