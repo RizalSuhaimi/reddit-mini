@@ -22,7 +22,7 @@ function App() {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload)
     }
-  })
+  }, []);
 
   return (
     <BrowserRouter>
